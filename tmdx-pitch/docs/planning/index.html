@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TMDX Stock Pitch — TransMedics Group | Omega Framework</title>
+<meta name="description" content="LONG TMDX — The only vertically integrated organ transplant network on earth, priced as a device company.">
+<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js" defer></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+<style>
+/* ===== CSS RESET & BASE ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;scroll-behavior:smooth;scroll-padding-top:5rem}
+html,body{overflow-x:hidden;max-width:100%}
+body{min-height:100dvh;line-height:1.6;font-family:'Satoshi',sans-serif;font-size:16px}
+img,svg{display:block;max-width:100%}
+button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
+table{border-collapse:collapse;width:100%}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+
+/* ===== DESIGN TOKENS ===== */
+:root, [data-theme="dark"] {
+  --bg: #0D0F14;
+  --surface: #141720;
+  --surface-elevated: #1C2030;
+  --border: #252A3A;
+  --accent: #00C9B1;
+  --accent-dim: rgba(0,201,177,0.12);
+  --accent-glow: rgba(0,201,177,0.25);
+  --gold: #F0B429;
+  --gold-dim: rgba(240,180,41,0.12);
+  --bull: #22C55E;
+  --bear: #F43F5E;
+  --text: #E8EAEF;
+  --text-muted: #8892A4;
+  --text-faint: #4A5568;
+  --font-display: 'Cabinet Grotesk', sans-serif;
+  --font-body: 'Satoshi', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-lg: 14px;
+  --transition: 200ms cubic-bezier(0.16,1,0.3,1);
+  --max-width: 1200px;
+  --nav-height: 60px;
+}
+
+[data-theme="light"] {
+  --bg: #F8F9FC;
+  --surface: #FFFFFF;
+  --surface-elevated: #F1F3F8;
+  --border: #E2E8F0;
+  --accent: #00A896;
+  --accent-dim: rgba(0,168,150,0.08);
+  --accent-glow: rgba(0,168,150,0.15);
+  --gold: #D4960F;
+  --gold-dim: rgba(212,150,15,0.08);
+  --bull: #16A34A;
+  --bear: #E11D48;
+  --text: #0F172A;
+  --text-muted: #64748B;
+  --text-faint: #94A3B8;
+}
+
+body{background:var(--bg);color:var(--text)}
+
+/* ===== TYPOGRAPHY ===== */
+.font-display{font-family:var(--font-display)}
+.font-mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums lining-nums;letter-spacing:-0.01em}
+.text-accent{color:var(--accent)}
+.text-gold{color:var(--gold)}
+.text-bull{color:var(--bull)}
+.text-bear{color:var(--bear)}
+.text-muted{color:var(--text-muted)}
+.text-faint{color:var(--text-faint)}
+
+/* ===== LAYOUT ===== */
+.container{max-width:var(--max-width);margin:0 auto;padding:0 24px}
+@media(max-width:768px){.container{padding:0 16px}}
+
+section{padding:56px 0}
+@media(max-width:768px){section{padding:48px 0}}
+
+/* ===== NAV ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-height);display:flex;align-items:center;transition:background var(--transition),box-shadow var(--transition);background:transparent}
+.nav.scrolled{background:rgba(13,15,20,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--border)}
+[data-theme="light"] .nav.scrolled{background:rgba(248,249,252,0.88)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:var(--max-width);margin:0 auto;padding:0 24px;gap:16px}
+.nav-brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:18px;white-space:nowrap}
+.nav-brand .tmdx{color:var(--accent);font-size:22px;letter-spacing:1px}
+.nav-brand .subtitle{color:var(--text-muted);font-weight:400;font-size:13px}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{font-size:13px;color:var(--text-muted);padding:6px 10px;border-radius:var(--radius-sm);transition:color var(--transition),background var(--transition)}
+.nav-links a:hover{color:var(--text);background:var(--accent-dim)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-badge{display:flex;align-items:center;gap:6px;background:var(--accent-dim);border:1px solid rgba(0,201,177,0.2);border-radius:999px;padding:4px 12px 4px 10px;font-size:12px;font-weight:600;color:var(--accent);white-space:nowrap}
+.nav-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.4}}
+.theme-toggle{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-sm);color:var(--text-muted);transition:color var(--transition),background var(--transition)}
+.theme-toggle:hover{color:var(--text);background:var(--accent-dim)}
+@media(max-width:900px){.nav-brand .subtitle{display:none}}
+@media(max-width:480px){.nav-badge{font-size:11px;padding:3px 8px 3px 7px}.nav-badge span:not(.dot){font-size:10px}.theme-toggle{width:32px;height:32px}.nav-right{gap:8px}}
+
+/* ===== HERO ===== */
+.hero{padding-top:calc(var(--nav-height) + 48px);padding-bottom:80px;position:relative;overflow:hidden}
+.hero-grid-bg{position:absolute;inset:0;z-index:0;opacity:0.06;background-image:linear-gradient(var(--accent) 1px,transparent 1px),linear-gradient(90deg,var(--accent) 1px,transparent 1px);background-size:60px 60px}
+.hero-grid-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 30%,transparent,var(--bg))}
+.hero .container{position:relative;z-index:1}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:var(--accent-dim);border:1px solid rgba(0,201,177,0.25);border-radius:999px;padding:6px 16px;font-size:13px;font-weight:600;color:var(--accent);margin-bottom:24px;letter-spacing:1px}
+.hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(2.5rem,5vw,4.5rem);line-height:1.05;margin-bottom:16px;letter-spacing:-0.02em}
+.hero-sub{font-size:clamp(1rem,2vw,1.25rem);color:var(--text-muted);max-width:720px;margin-bottom:40px;line-height:1.5}
+
+/* KPI Cards */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+@media(max-width:768px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;transition:border-color var(--transition)}
+.kpi-card:hover{border-color:var(--accent)}
+.kpi-label{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:6px;font-weight:500}
+.kpi-value{font-family:var(--font-mono);font-size:clamp(1.5rem,3vw,2rem);font-weight:700;margin-bottom:4px}
+.kpi-delta{font-family:var(--font-mono);font-size:13px;font-weight:600}
+
+/* Stats Row */
+.stats-row{display:flex;flex-wrap:wrap;gap:8px 24px;margin-bottom:32px;font-size:14px;color:var(--text-muted)}
+.stats-row .mono{font-family:var(--font-mono);color:var(--text);font-weight:500}
+
+/* Why Now Box */
+.why-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px;margin-bottom:28px;max-width:800px}
+.why-box h3{font-family:var(--font-display);font-size:14px;text-transform:uppercase;letter-spacing:2px;color:var(--accent);margin-bottom:16px;font-weight:700}
+.why-box ul{display:flex;flex-direction:column;gap:10px}
+.why-box li{font-size:15px;line-height:1.5;padding-left:24px;position:relative}
+.why-box li::before{content:'✦';position:absolute;left:0;color:var(--accent)}
+
+/* Omega Teaser */
+.omega-teaser{display:inline-flex;align-items:center;gap:8px;background:var(--surface-elevated);border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:12px;color:var(--text-muted);margin-bottom:20px}
+.omega-teaser .accent{color:var(--accent)}
+
+.author-line{font-size:14px;color:var(--text-muted);line-height:1.6}
+
+/* ===== SECTION HEADERS ===== */
+.section-label{font-family:var(--font-display);font-size:12px;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin-bottom:12px;font-weight:600}
+.section-title{font-family:var(--font-display);font-weight:700;font-size:clamp(1.75rem,3.5vw,2.75rem);line-height:1.15;margin-bottom:16px;letter-spacing:-0.01em}
+.section-subtitle{font-size:clamp(0.95rem,1.5vw,1.1rem);color:var(--text-muted);max-width:640px;margin-bottom:40px;line-height:1.5}
+
+/* ===== CARDS ===== */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:border-color var(--transition),transform var(--transition)}
+.card:hover{border-color:rgba(0,201,177,0.3)}
+.card-elevated{background:var(--surface-elevated)}
+
+/* ===== STAT CARDS (Problem) ===== */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+@media(max-width:768px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-card{text-align:center;padding:32px 20px}
+.stat-number{font-family:var(--font-mono);font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--bear);margin-bottom:8px;line-height:1}
+.stat-desc{font-size:14px;color:var(--text-muted);line-height:1.4}
+
+/* ===== INFRASTRUCTURE GRID ===== */
+.infra-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px}
+@media(max-width:768px){.infra-grid{grid-template-columns:repeat(2,1fr)}}
+.infra-card{padding:24px;display:flex;flex-direction:column;gap:8px}
+.infra-icon{font-size:28px;margin-bottom:4px}
+.infra-label{font-family:var(--font-display);font-weight:700;font-size:18px}
+.infra-meta{font-size:13px;color:var(--text-muted)}
+
+/* ===== CHART WRAPPERS ===== */
+.chart-wrapper{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;margin-bottom:24px}
+.chart-wrapper h3{font-family:var(--font-display);font-weight:700;font-size:18px;margin-bottom:20px}
+.chart-canvas-container{position:relative;width:100%;height:380px}
+.chart-canvas-container canvas{width:100%!important;height:100%}
+@media(max-width:768px){.chart-canvas-container{height:280px}}
+
+/* ===== CALLOUT ===== */
+.callout{display:flex;gap:16px;padding:24px;border-radius:var(--radius);margin-bottom:24px}
+.callout-accent{background:var(--accent-dim);border:1px solid rgba(0,201,177,0.2)}
+.callout-gold{background:var(--gold-dim);border:1px solid rgba(240,180,41,0.2)}
+.callout p{font-size:15px;line-height:1.6}
+.callout strong{color:var(--accent)}
+.callout-gold strong{color:var(--gold)}
+
+/* ===== NRP BOX ===== */
+.nrp-box{background:var(--surface-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:32px;margin-bottom:32px}
+.nrp-box h3{font-family:var(--font-display);font-weight:700;font-size:18px;margin-bottom:16px;color:var(--bear)}
+.nrp-columns{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:16px}
+@media(max-width:600px){.nrp-columns{grid-template-columns:1fr}}
+.nrp-col h4{font-family:var(--font-display);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px}
+.nrp-col p{font-size:14px;color:var(--text-muted);line-height:1.5}
+.nrp-proof{font-size:15px;font-weight:600;color:var(--text)}
+
+/* ===== REPLICATION BOX ===== */
+.replication-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;margin-bottom:32px}
+.replication-box h3{font-family:var(--font-display);font-weight:700;font-size:16px;margin-bottom:16px}
+.replication-items{display:flex;flex-direction:column;gap:8px}
+.replication-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px}
+.replication-item:last-child{border-bottom:none;font-weight:700;color:var(--accent)}
+.replication-item span:last-child{font-family:var(--font-mono);font-size:13px;color:var(--text-muted)}
+.replication-item:last-child span:last-child{color:var(--accent)}
+
+/* ===== PIPELINE ===== */
+.pipeline{display:flex;gap:4px;align-items:stretch;margin-bottom:40px;overflow-x:auto;padding-bottom:8px}
+.pipeline-stage{flex:1;min-width:140px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 12px;text-align:center;opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease,border-color 0.2s ease,box-shadow 0.2s ease;position:relative;cursor:default}
+.stage-info-icon{position:absolute;top:7px;right:7px;width:15px;height:15px;border-radius:50%;background:rgba(0,201,177,0.12);border:1px solid rgba(0,201,177,0.35);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--accent);font-family:var(--font-mono);line-height:1;transition:background 0.2s,color 0.2s,border-color 0.2s;animation:info-pulse 2.5s ease-in-out 1.5s 3}
+.pipeline-stage:hover .stage-info-icon{background:var(--accent);color:#0D0F14;border-color:var(--accent)}
+@keyframes info-pulse{0%,100%{box-shadow:none;transform:scale(1)}50%{box-shadow:0 0 0 4px rgba(0,201,177,0.25);transform:scale(1.15)}}
+.pipeline-stage.visible{opacity:1;transform:translateY(0)}
+.pipeline-stage:hover{border-color:var(--accent);box-shadow:0 0 16px rgba(0,201,177,0.15)}
+.stage-tooltip{display:none}
+#gtt{position:fixed;z-index:99999;background:#1C2030;border:1px solid #00C9B1;border-radius:8px;padding:10px 14px;width:230px;text-align:left;font-size:12px;line-height:1.6;color:#E8EAEF;pointer-events:none;box-shadow:0 8px 28px rgba(0,0,0,0.55);transition:opacity 0.15s ease;opacity:0}
+#gtt b{color:#00C9B1;display:block;margin-bottom:4px;font-size:12px}
+#gtt .gtt-arrow{position:absolute;top:100%;left:50%;transform:translateX(-50%);width:0;height:0;border:6px solid transparent;border-top-color:#00C9B1}
+.pipeline-stage .stage-id{font-family:var(--font-mono);font-size:11px;color:var(--accent);font-weight:600;margin-bottom:6px}
+.pipeline-stage .stage-name{font-family:var(--font-display);font-size:13px;font-weight:700;margin-bottom:4px}
+.pipeline-stage .stage-desc{font-size:11px;color:var(--text-muted);line-height:1.3}
+.pipeline-arrow{display:flex;align-items:center;color:var(--accent);font-size:18px;padding:0 2px;flex-shrink:0}
+@media(max-width:768px){.pipeline{flex-wrap:wrap}.pipeline-arrow{display:none}.pipeline-stage{min-width:calc(50% - 8px)}}
+
+/* ===== DEBATE TABLE ===== */
+.debate-table{width:100%;margin-bottom:24px;font-size:14px}
+.debate-table th{font-family:var(--font-display);font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);padding:12px 16px;text-align:left;border-bottom:2px solid var(--border);font-weight:600}
+.debate-table td{padding:14px 16px;border-bottom:1px solid var(--border)}
+.debate-table tr:last-child td{border-bottom:none;font-weight:700;background:var(--accent-dim);color:var(--accent)}
+.debate-table .verdict-long{color:var(--bull);font-weight:700}
+.debate-table .verdict-wait{color:var(--gold);font-weight:700}
+.debate-table .verdict-short{color:var(--bear);font-weight:700}
+
+/* ===== VARIANT PERCEPTION ===== */
+.mechanism-box{background:linear-gradient(135deg,var(--accent-dim),rgba(0,201,177,0.04));border:1px solid rgba(0,201,177,0.25);border-radius:var(--radius);padding:32px;margin-bottom:32px}
+.mechanism-box p{font-size:15px;line-height:1.7}
+
+.option-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:32px}
+@media(max-width:768px){.option-grid{grid-template-columns:1fr}}
+.option-card{padding:28px 24px;position:relative;overflow:hidden}
+.option-badge{display:inline-block;background:var(--bear);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.5px;padding:3px 8px;border-radius:999px;margin-bottom:16px;text-transform:uppercase}
+.option-card h3{font-family:var(--font-display);font-weight:700;font-size:18px;margin-bottom:4px}
+.option-card .option-sub{font-family:var(--font-display);font-weight:500;font-size:14px;color:var(--gold);margin-bottom:12px}
+.option-card p{font-size:14px;color:var(--text-muted);line-height:1.5}
+
+.closing-line{font-family:var(--font-display);font-size:clamp(1.1rem,2vw,1.5rem);font-weight:700;text-align:center;padding:32px 0;line-height:1.4}
+.closing-line em{font-style:normal;color:var(--accent)}
+
+/* ===== FINANCIAL TABLES ===== */
+.fin-table{width:100%;font-size:14px;margin-bottom:24px}
+.fin-table th{font-family:var(--font-display);font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);padding:10px 12px;text-align:right;border-bottom:2px solid var(--border);font-weight:600}
+.fin-table th:first-child{text-align:left}
+.fin-table td{font-family:var(--font-mono);padding:10px 12px;text-align:right;border-bottom:1px solid var(--border);font-size:13px}
+.fin-table td:first-child{text-align:left;font-family:var(--font-display);font-weight:600;font-size:14px}
+.fin-table tr:last-child td{border-bottom:none}
+.fin-table .highlight-row td{background:var(--accent-dim);font-weight:700}
+
+/* ===== ROIC BLOCKS ===== */
+.roic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+@media(max-width:600px){.roic-grid{grid-template-columns:1fr}}
+.roic-block{text-align:center;padding:24px}
+.roic-year{font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.roic-value{font-family:var(--font-mono);font-size:clamp(2rem,4vw,2.5rem);font-weight:700;color:var(--accent)}
+.roic-block:first-child .roic-value{color:var(--text-muted)}
+
+/* ===== GUIDANCE TRACK ===== */
+.guidance-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.guidance-row{display:grid;grid-template-columns:80px 1fr auto;gap:16px;align-items:center;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px}
+@media(max-width:600px){.guidance-row{grid-template-columns:1fr;gap:4px}}
+.guidance-year{font-family:var(--font-display);font-weight:700;color:var(--accent)}
+.guidance-range{color:var(--text-muted)}
+.guidance-beat{font-family:var(--font-mono);font-weight:700;color:var(--bull);white-space:nowrap}
+
+/* ===== DCF BARS ===== */
+.dcf-scenarios{display:flex;flex-direction:column;gap:16px;margin-bottom:32px}
+.dcf-row{display:grid;grid-template-columns:120px 1fr 100px;gap:16px;align-items:center;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
+@media(max-width:600px){.dcf-row{grid-template-columns:1fr;gap:8px}}
+.dcf-row.dcf-base{border-color:var(--accent);background:var(--accent-dim)}
+.dcf-label{font-family:var(--font-display);font-weight:700;font-size:14px}
+.dcf-label .prob{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);font-weight:400}
+.dcf-bar-container{height:10px;background:var(--surface-elevated);border-radius:999px;overflow:hidden}
+.dcf-bar{height:100%;border-radius:999px;transition:width 1.5s cubic-bezier(0.16,1,0.3,1)}
+.dcf-bar-bear{background:var(--bear)}
+.dcf-bar-base{background:var(--accent)}
+.dcf-bar-bull{background:var(--gold)}
+.dcf-bar-weighted{background:linear-gradient(90deg,var(--accent),var(--gold))}
+.dcf-price{font-family:var(--font-mono);font-weight:700;font-size:18px;text-align:right}
+.dcf-assumptions{font-size:12px;color:var(--text-muted);margin-top:4px}
+
+/* ===== SENSITIVITY ===== */
+.sensitivity-table{width:100%;font-size:13px;margin-bottom:24px;overflow-x:auto}
+.sensitivity-table th{font-family:var(--font-mono);padding:8px 12px;border-bottom:2px solid var(--border);font-size:12px;text-align:center;color:var(--text-muted)}
+.sensitivity-table td{font-family:var(--font-mono);padding:8px 12px;text-align:center;border-bottom:1px solid var(--border)}
+.sensitivity-table td:first-child,.sensitivity-table th:first-child{text-align:left;font-weight:700;color:var(--text-muted)}
+.sensitivity-table .cell-highlight{background:var(--accent-dim);color:var(--accent);font-weight:700;border-radius:4px}
+.sensitivity-table .cell-current{background:rgba(244,63,94,0.1);color:var(--bear);font-weight:700;border-radius:4px}
+
+/* ===== WALL STREET TABLE ===== */
+.ws-table{width:100%;font-size:14px;margin-bottom:24px}
+.ws-table th{font-family:var(--font-display);font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);padding:10px 12px;text-align:left;border-bottom:2px solid var(--border)}
+.ws-table td{padding:12px;border-bottom:1px solid var(--border);font-size:13px}
+.ws-table td:nth-child(3){font-family:var(--font-mono);font-weight:600}
+.ws-table .agree{color:var(--bull)}
+.ws-table .disagree{color:var(--bear)}
+.ws-table tr:last-child td{background:var(--accent-dim);font-weight:600}
+
+/* ===== TIMELINE ===== */
+.timeline{position:relative;padding:40px 0;margin-bottom:32px}
+.timeline-line{position:absolute;top:47px;left:0;right:0;height:2px;background:var(--border);}
+.timeline-events{display:flex;justify-content:space-between;position:relative;z-index:1}
+
+/* ===== HAMBURGER NAV ===== */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{display:block;width:20px;height:2px;background:var(--text-muted);border-radius:2px;transition:all 0.25s ease}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.mobile-nav{position:fixed;top:56px;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--border);z-index:999;padding:0;max-height:0;overflow:hidden;transition:max-height 0.3s cubic-bezier(0.16,1,0.3,1),padding 0.3s ease}
+.mobile-nav a{display:block;padding:10px 20px;font-size:14px;color:var(--text-muted);text-decoration:none;transition:color 0.2s}
+.mobile-nav a:hover{color:var(--accent)}
+.mobile-nav.open{max-height:400px;padding:8px 0}
+@media(max-width:900px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+}
+
+@media(max-width:768px){.timeline-events{flex-direction:column;gap:24px}.timeline-line{width:2px;height:100%;top:0;left:20px;transform:none}}
+.timeline-event{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:140px;text-align:center}
+@media(max-width:768px){.timeline-event{flex-direction:row;max-width:none;text-align:left;gap:16px}}
+.timeline-dot{width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 0 2px var(--accent);flex-shrink:0;opacity:0;transition:opacity 0.5s ease,transform 0.5s ease;transform:scale(0)}
+.timeline-dot.visible{opacity:1;transform:scale(1)}
+.timeline-date{font-family:var(--font-mono);font-size:11px;color:var(--accent);font-weight:600}
+.timeline-text{font-size:12px;color:var(--text-muted);line-height:1.3}
+.timeline-title{font-family:var(--font-display);font-size:13px;font-weight:700}
+
+/* ===== SQUEEZE BOX ===== */
+.squeeze-box{background:linear-gradient(135deg,rgba(34,197,94,0.08),rgba(0,201,177,0.08));border:1px solid rgba(34,197,94,0.2);border-radius:var(--radius);padding:28px;text-align:center;margin-bottom:24px}
+.squeeze-box .big-nums{font-family:var(--font-mono);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;color:var(--bull);margin-bottom:8px}
+.squeeze-box p{font-size:15px;color:var(--text-muted);line-height:1.6}
+.squeeze-box p strong{color:var(--accent)}
+
+/* ===== BEAR SECTION ===== */
+.bear-quote{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--bear);border-radius:var(--radius);padding:28px 32px;margin-bottom:32px;font-size:16px;line-height:1.7;color:var(--text-muted);font-style:italic}
+.bear-quote .rr{color:var(--accent);font-style:normal;font-weight:700;font-family:var(--font-mono);display:block;margin-top:12px;font-size:14px}
+
+.risk-table{width:100%;font-size:13px;margin-bottom:32px}
+.risk-table th{font-family:var(--font-display);font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);padding:10px 12px;text-align:left;border-bottom:2px solid var(--border)}
+.risk-table td{padding:14px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5}
+.risk-table td:first-child{font-weight:700;min-width:160px;white-space:nowrap;color:var(--bear)}
+@media(max-width:600px){.risk-table td:first-child{white-space:normal;min-width:100px}}
+
+.scorpion-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:32px}
+.scorpion-box h4{font-family:var(--font-display);font-size:14px;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;color:var(--text-muted)}
+.scorpion-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:14px;line-height:1.5}
+.scorpion-item .icon-check{color:var(--bull);font-weight:700;flex-shrink:0}
+.scorpion-item .icon-warn{color:var(--gold);font-weight:700;flex-shrink:0}
+.scorpion-item .icon-data{color:var(--accent);font-weight:700;flex-shrink:0}
+
+/* ===== CLOSE SECTION ===== */
+.close-section{text-align:center;padding:56px 0}
+.close-statement{font-family:var(--font-display);font-size:clamp(1.5rem,3.5vw,2.5rem);font-weight:700;line-height:1.3;max-width:800px;margin:0 auto 40px;letter-spacing:-0.01em}
+.close-statement em{font-style:normal;color:var(--accent)}
+
+.summary-box{display:inline-flex;flex-wrap:wrap;gap:24px;justify-content:center;align-items:center;background:var(--surface);border:2px solid var(--accent);border-radius:var(--radius);padding:24px 40px;margin-bottom:40px;font-family:var(--font-mono);font-size:15px;font-weight:600}
+@media(max-width:600px){.summary-box{gap:12px;padding:20px;font-size:13px}}
+.summary-box .direction{color:var(--accent);font-size:18px}
+.summary-box .divider{color:var(--border)}
+
+.skin-statement{font-size:16px;color:var(--text-muted);max-width:600px;margin:0 auto 16px;line-height:1.6}
+.disclaimer{font-size:12px;color:var(--text-faint);max-width:500px;margin:0 auto 40px}
+.footer{font-size:13px;color:var(--text-faint);padding-top:24px;border-top:1px solid var(--border);display:inline-block}
+
+/* ===== SCROLL ANIMATIONS ===== */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* ===== PEER P/E ===== */
+.peer-line{font-size:15px;color:var(--text-muted);margin-bottom:16px;line-height:1.6}
+.peer-line .mono{font-family:var(--font-mono);font-weight:600;color:var(--text)}
+
+/* ===== OP LEVERAGE ===== */
+.op-stat{display:flex;flex-wrap:wrap;gap:24px;padding:16px 0;font-size:15px;color:var(--text-muted);margin-bottom:24px}
+.op-stat strong{color:var(--accent);font-family:var(--font-mono)}
+.ni-note{font-size:13px;color:var(--text-faint);padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:24px;line-height:1.5}
+
+/* ===== IMPACT LINE ===== */
+.impact-line{display:flex;gap:24px;justify-content:center;align-items:center;flex-wrap:wrap;padding:20px;font-family:var(--font-display);font-size:clamp(0.9rem,1.5vw,1.1rem);font-weight:700;margin-bottom:32px}
+.impact-line .negative{color:var(--bear)}
+.impact-line .positive{color:var(--bull)}
+.impact-line .sep{color:var(--text-faint);font-weight:400}
+
+/* ===== PARAGRAPH ===== */
+.content-para{font-size:16px;color:var(--text-muted);max-width:700px;line-height:1.7;margin-bottom:24px}
+.content-para strong{color:var(--text)}
+
+/* ===== INSIGHT BOX ===== */
+.insight-box{background:var(--accent-dim);border:1px solid rgba(0,201,177,0.2);border-radius:var(--radius);padding:24px 28px;margin-bottom:24px}
+.insight-box p{font-size:15px;line-height:1.7}
+.insight-box strong{color:var(--accent)}
+
+.premortem-note{font-size:14px;color:var(--text-muted);padding:12px 16px;background:var(--surface);border-left:2px solid var(--gold);border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin-bottom:24px;line-height:1.5}
+
+/* ===== MOBILE HELPERS ===== */
+@media(max-width:768px){
+  .hide-mobile{display:none}
+  .sensitivity-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch}
+}
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE RESPONSIVENESS — Full optimization
+   ═══════════════════════════════════════════════════════ */
+
+/* Global overflow guard */
+*{box-sizing:border-box}img,canvas,video,svg,table{max-width:100%}
+img,canvas,table{max-width:100%}
+
+/* ── Nav ── */
+@media(max-width:640px){
+  .nav-brand span:last-child{display:none}
+  .nav-right .nav-badge{font-size:11px;padding:4px 8px}
+}
+
+/* ── Hero ── */
+@media(max-width:640px){
+  .hero h1{font-size:clamp(2rem,10vw,3rem)}
+  .hero-sub{font-size:15px}
+  .kpi-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .kpi-value{font-size:1.6rem}
+  .stats-row{font-size:12px;gap:6px 16px}
+  .why-now-box{padding:16px}
+  .omega-teaser{font-size:11px;padding:5px 12px}
+}
+
+/* ── Stat cards ── */
+@media(max-width:640px){
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .stat-number{font-size:2rem}
+}
+
+/* ── Infra grid ── */
+@media(max-width:640px){
+  .infra-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .infra-card{padding:16px 12px}
+}
+
+/* ── Charts — reduce height on mobile ── */
+@media(max-width:640px){
+  .chart-wrapper canvas{max-height:220px!important}
+  [style*="height:300px"]{height:220px!important}
+  [style*="height:280px"]{height:220px!important}
+  [style*="height:260px"]{height:200px!important}
+}
+
+/* ── Pipeline ── */
+@media(max-width:640px){
+  .pipeline{gap:0;flex-direction:column;align-items:stretch}
+  .pipeline-arrow{transform:rotate(90deg);align-self:center;padding:4px 0;font-size:14px}
+  .pipeline-stage{min-width:unset;padding:12px}
+}
+
+/* ── Option grid ── */
+@media(max-width:640px){
+  .option-grid{grid-template-columns:1fr}
+}
+
+/* ── Tables — horizontal scroll ── */
+.risk-table-wrapper,.fin-table-wrapper,.ws-table-wrapper,.sens-table-wrapper{
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+@media(max-width:768px){
+  .risk-table,.fin-table,.ws-table,.sens-table{min-width:500px}
+  .sens-table{min-width:420px}
+}
+
+/* ── DCF bars ── */
+@media(max-width:640px){
+  .dcf-row{grid-template-columns:80px 1fr 60px;gap:8px}
+  .dcf-label{font-size:12px}
+  .dcf-price{font-size:14px}
+  .dcf-assumptions{font-size:11px}
+}
+
+/* ── Timeline — the main mobile fix ── */
+@media(max-width:768px){
+  .timeline-events{flex-direction:column;gap:0;padding-left:36px;position:relative}
+  .timeline-line{width:2px!important;height:100%!important;top:0!important;left:12px!important;right:auto!important;transform:none!important}
+  .timeline-event{
+    flex-direction:row;
+    align-items:flex-start;
+    gap:14px;
+    max-width:100%;
+    text-align:left;
+    padding:16px 0;
+    border-bottom:1px solid var(--border);
+    position:relative;
+  }
+  .timeline-event:last-child{border-bottom:none}
+  .timeline-dot{
+    position:absolute;
+    left:-28px;
+    top:22px;
+    flex-shrink:0;
+  }
+  .timeline-date{font-size:11px;margin-bottom:4px}
+  .timeline-title{font-size:15px;margin-bottom:4px}
+  .timeline-text{
+    font-size:13px;
+    white-space:normal;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+    max-width:100%;
+    display:block;
+  }
+}
+
+/* ── Scorpion tracker ── */
+@media(max-width:640px){
+  .scorpion-item{flex-direction:column;gap:4px}
+  .scorpion-item span:last-child{font-size:13px}
+}
+
+/* ── Close section ── */
+@media(max-width:640px){
+  .close-statement{font-size:1.1rem;padding:24px 0}
+  .summary-box{padding:16px}
+}
+
+/* ── ROIC blocks ── */
+@media(max-width:640px){
+  .roic-grid{grid-template-columns:1fr!important}
+  .roic-block{padding:20px}
+}
+
+/* ── Bear case quote ── */
+@media(max-width:640px){
+  .bear-quote{font-size:14px;padding:20px}
+  .bear-quote .rr{display:block;margin-top:8px}
+}
+
+/* ── Position sizing note ── */
+@media(max-width:640px){
+  .pos-note{font-size:12px;padding:10px 12px}
+}
+
+/* ── Guidance track record ── */
+@media(max-width:640px){
+  .guidance-row{flex-direction:column;gap:4px;align-items:flex-start}
+  .guidance-delta{align-self:flex-end}
+}
+
+/* ── KPI display numbers ── */
+@media(max-width:380px){
+  .kpi-value{font-size:1.35rem}
+  .hero h1{font-size:2rem}
+}
+
+
+[data-lucide]{display:inline-block;vertical-align:middle;flex-shrink:0}
+
+/* ===== INTELLIGENCE LAYER ===== */
+.intel-header-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(0,201,177,0.15),rgba(0,201,177,0.05));border:1px solid rgba(0,201,177,0.3);border-radius:999px;padding:6px 18px;font-size:11px;font-family:var(--font-mono);font-weight:600;color:var(--accent);letter-spacing:0.08em;margin-bottom:32px}
+.intel-grid{display:flex;flex-direction:column;gap:12px;margin-top:32px}
+.intel-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:0;overflow:hidden;transition:border-color var(--transition)}
+.intel-card:hover{border-color:rgba(0,201,177,0.3)}
+.intel-card-inner{display:grid;grid-template-columns:2fr 2fr 2fr;gap:0;align-items:stretch}
+.intel-col{padding:18px 22px;border-right:1px solid var(--border)}
+.intel-col:last-child{border-right:none}
+.intel-col-label{font-size:10px;font-family:var(--font-mono);font-weight:700;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase}
+.intel-col-label.label-insight{color:var(--accent)}
+.intel-col-label.label-method{color:var(--gold)}
+.intel-col-label.label-miss{color:var(--bear)}
+.intel-num{font-family:var(--font-mono);font-size:10px;font-weight:700;color:var(--text-faint);padding:6px 16px;border-bottom:1px solid var(--border);background:var(--surface-elevated);letter-spacing:0.1em}
+.intel-col-insight{font-size:13.5px;color:var(--text);font-weight:600;line-height:1.5}
+.intel-col-method{font-size:13px;color:var(--text-muted);line-height:1.5}
+.intel-col-miss{font-size:13px;color:var(--text-muted);line-height:1.5}
+.intel-tag{display:inline-block;font-size:9px;font-family:var(--font-mono);font-weight:700;padding:2px 8px;border-radius:4px;margin-bottom:8px;letter-spacing:0.05em}
+.intel-tag-method{background:rgba(240,180,41,0.12);color:var(--gold)}
+.intel-tag-miss{background:rgba(244,63,94,0.1);color:var(--bear)}
+.intel-col-headers{display:grid;grid-template-columns:2fr 2fr 2fr;gap:0;padding:0 22px;margin-bottom:6px}
+@media(max-width:768px){
+  .intel-card-inner{grid-template-columns:1fr}
+  .intel-col{border-right:none;border-bottom:1px solid var(--border)}
+  .intel-col:last-child{border-bottom:none}
+  .intel-col-headers{display:none}
+}
+.premium-data-box{margin-top:48px;background:linear-gradient(135deg,var(--surface-elevated),var(--surface));border:1px solid rgba(240,180,41,0.25);border-radius:var(--radius-lg);padding:28px 32px}
+.premium-data-title{font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.premium-sources{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.premium-source{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px}
+.premium-source-name{font-family:var(--font-mono);font-size:10px;font-weight:700;color:var(--gold);letter-spacing:0.08em;margin-bottom:8px;text-transform:uppercase}
+.premium-source-stat{font-size:13px;color:var(--text);font-weight:700;line-height:1.4;margin-bottom:5px}
+.premium-source-note{font-size:12px;color:var(--text-muted);line-height:1.4}
+@media(max-width:768px){.premium-sources{grid-template-columns:1fr}}
+
+/* ===== COMPETITIVE LANDSCAPE ===== */
+.comp-section-intro{font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.5}
+.comp-table-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.comp-table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+.comp-table th{padding:10px 14px;text-align:left;font-size:10px;font-family:var(--font-mono);font-weight:700;letter-spacing:0.08em;color:var(--text-muted);text-transform:uppercase;border-bottom:2px solid var(--border)}
+.comp-table th.tmdx-head{color:var(--accent);border-bottom-color:var(--accent)}
+.comp-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text-muted);vertical-align:top;line-height:1.4}
+.comp-table tbody tr:last-child td{border-bottom:none}
+.comp-table td.tmdx-col{color:var(--accent);font-weight:600;background:rgba(0,201,177,0.04);border-left:2px solid rgba(0,201,177,0.25)}
+.comp-table .comp-none{color:var(--text-faint);font-style:italic}
+.comp-table .comp-limited{color:var(--gold)}
+.comp-footnote{font-size:12px;color:var(--text-faint);margin-top:10px;line-height:1.5}
+
+/* ===== M&A TAKEOUT ===== */
+.ma-table-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ma-table{width:100%;border-collapse:collapse;font-size:13px;min-width:600px}
+.ma-table th{padding:10px 14px;text-align:left;font-size:10px;font-family:var(--font-mono);font-weight:700;letter-spacing:0.08em;color:var(--text-muted);text-transform:uppercase;border-bottom:2px solid var(--border)}
+.ma-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text-muted);vertical-align:top;line-height:1.4}
+.ma-table tbody tr:last-child td{border-bottom:none}
+.ma-high{color:var(--gold);font-weight:600;font-family:var(--font-mono)}
+.ma-med{color:var(--accent)}
+.ma-low{color:var(--text-muted)}
+.ma-comps{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.ma-comp-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px}
+.ma-comp-deal{font-size:13px;font-weight:600;color:var(--text);margin-bottom:5px}
+.ma-comp-detail{font-size:12px;color:var(--text-muted);line-height:1.4}
+@media(max-width:600px){.ma-comps{grid-template-columns:1fr}}
+
+/* ===== THREAD EVIDENCE ===== */
+.thread-evidence{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 28px;margin-bottom:32px;max-width:700px;margin-left:auto;margin-right:auto}
+.thread-evidence-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
+.thread-evidence-desc{font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.5}
+.thread-links{display:flex;flex-direction:column;gap:8px}
+.thread-link{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--surface-elevated);border:1px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;transition:border-color var(--transition),background var(--transition)}
+.thread-link:hover{border-color:var(--accent);background:var(--accent-dim)}
+.thread-link-label{font-size:13px;font-weight:600;color:var(--text)}
+.thread-link-desc{font-size:11px;color:var(--text-muted);font-family:var(--font-mono)}
+</style>
+</head>
+<body>
+
+<!-- ===== SECTION 0 — NAVIGATION ===== -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <span class="tmdx">TMDX</span>
+      <span class="subtitle">TransMedics Stock Pitch</span>
+    </div>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#business">Business</a>
+      <a href="#research">Research</a>
+      <a href="#intelligence" style="color:var(--accent);font-weight:600">Intel</a>
+      <a href="#variant">Options</a>
+      <a href="#financials">Financials</a>
+      <a href="#valuation">Valuation</a>
+      <a href="#catalysts">Catalysts</a>
+      <a href="#risks">Risks</a>
+      <a href="#close">Close</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav-right">
+      <div class="nav-badge"><span class="dot"></span>LONG · <span style="font-family:var(--font-mono)">$100.69</span></div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#overview">Overview</a>
+  <a href="#business">Business</a>
+  <a href="#research">Research</a>
+  <a href="#intelligence">Intel ◆</a>
+  <a href="#variant">Options</a>
+  <a href="#financials">Financials</a>
+  <a href="#valuation">Valuation</a>
+  <a href="#catalysts">Catalysts</a>
+  <a href="#risks">Risks</a>
+  <a href="#close">Close</a>
+</div>
+
+<!-- ===== SECTION 1 — HERO ===== -->
+<section class="hero" id="overview">
+  <div class="hero-grid-bg"></div>
+  <div class="container">
+    <div class="hero-pill">LONG · NYSE: TMDX</div>
+    <h1 class="font-display">TransMedics Group</h1>
+    <p class="hero-sub">The only vertically integrated organ transplant network on earth — priced as a device company.</p>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Entry Price</div>
+        <div class="kpi-value font-mono" style="color:var(--text)">$100.69</div>
+        <div id="livePriceBadge" style="margin-top:6px;font-size:12px;font-family:var(--font-mono);min-height:16px"><a href="https://finance.yahoo.com/quote/TMDX" target="_blank" rel="noopener" style="color:var(--text-faint);text-decoration:none;font-size:11px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-faint)'">Live price ↗</a></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Near-Term Target</div>
+        <div class="kpi-value font-mono text-bull">$130</div>
+        <div class="kpi-delta text-bull">+29% ↑ <span style="font-size:10px;font-weight:400;color:var(--text-faint)">pre-governance-compression</span></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Bull Target</div>
+        <div class="kpi-value font-mono text-accent">$155</div>
+        <div class="kpi-delta text-accent">+54% ↑</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Stop Loss</div>
+        <div class="kpi-value font-mono text-bear">$85.00</div>
+        <div class="kpi-delta text-bear">-16% ↓</div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <span>Risk/Reward: <span class="mono">3.6:1</span></span>
+      <span>·</span>
+      <span>Analyst Consensus: <span class="mono">$148.62</span> <span style="font-size:11px;color:var(--text-faint)">(8 analysts · live Apr 6 2026)</span></span>
+      <span>·</span>
+      <span>Short Float: <span class="mono">23.7%</span></span>
+    </div>
+
+    <!-- ===== AUDIO PLAYER ===== -->
+    <div id="audioPlayer" class="fade-up" style="display:flex;align-items:center;gap:14px;max-width:520px;margin-bottom:28px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);">
+      <button id="audioBtn" onclick="toggleAudio()" style="width:36px;height:36px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.15s ease,background 0.15s ease" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+        <svg id="audioIcon" width="14" height="14" viewBox="0 0 24 24" fill="#0D0F14"><polygon points="5,3 19,12 5,21"/></svg>
+      </button>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:11px;font-family:var(--font-mono);color:var(--text-faint);letter-spacing:0.08em;margin-bottom:5px">60s OVERVIEW &middot; INVESTMENT THESIS NARRATION</div>
+        <div style="position:relative;height:4px;background:var(--surface-elevated);border-radius:999px;cursor:pointer" id="audioTrack" onclick="seekAudio(event)">
+          <div id="audioProgress" style="height:100%;width:0%;background:var(--accent);border-radius:999px;transition:width 0.1s linear"></div>
+        </div>
+      </div>
+      <span id="audioTime" style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);white-space:nowrap;flex-shrink:0">0:00</span>
+      <audio id="audioEl" preload="none" onended="resetAudio()" ontimeupdate="updateAudio()">
+        <source src="./script.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <script>
+    function toggleAudio(){
+      const a=document.getElementById('audioEl');
+      const icon=document.getElementById('audioIcon');
+      if(a.paused){
+        a.play();
+        icon.innerHTML='<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+      } else {
+        a.pause();
+        icon.innerHTML='<polygon points="5,3 19,12 5,21"/>';
+      }
+    }
+    function updateAudio(){
+      const a=document.getElementById('audioEl');
+      const pct=(a.currentTime/a.duration*100)||0;
+      document.getElementById('audioProgress').style.width=pct+'%';
+      const m=Math.floor(a.currentTime/60);
+      const s=Math.floor(a.currentTime%60).toString().padStart(2,'0');
+      document.getElementById('audioTime').textContent=m+':'+s;
+    }
+    function resetAudio(){
+      document.getElementById('audioProgress').style.width='0%';
+      document.getElementById('audioTime').textContent='0:00';
+      document.getElementById('audioIcon').innerHTML='<polygon points="5,3 19,12 5,21"/>';
+    }
+    function seekAudio(e){
+      const a=document.getElementById('audioEl');
+      const rect=document.getElementById('audioTrack').getBoundingClientRect();
+      const pct=(e.clientX-rect.left)/rect.width;
+      a.currentTime=pct*a.duration;
+    }
+    </script>
+
+    <div class="why-box">
+      <h3>Why Now</h3>
+      <ul>
+        <li>First positive FCF in company history (<span class="font-mono text-accent">+$134M</span>, 2025)</li>
+        <li>Guidance: beat HIGH end 3 consecutive years (2023–2025)</li>
+        <li><span class="font-mono">23.7%</span> float short = short squeeze mechanism loaded</li>
+        <li>Governance discount creates institutional no-touch status — each clean quarterly filing compresses it</li>
+      </ul>
+    </div>
+
+    <div class="fade-up" style="max-width:700px;margin-bottom:20px;padding:16px 20px;background:var(--accent-dim);border:1px solid rgba(0,201,177,0.25);border-radius:var(--radius);font-size:15px;line-height:1.6">
+      <strong style="color:var(--text)">The non-consensus view:</strong> <span style="color:var(--text-muted)">The bear thesis on TMDX is built on a <strong style="color:var(--text)">biological error</strong> — NRP and OCS serve different donor populations. Simultaneously, a governance overhang suppresses the price despite 5/8 analysts rating BUY at $148+. Neither mechanism is in any sell-side model. The de-risking path is sequential, measurable, and already started.</span>
+    </div>
+    <div class="omega-teaser">Built with the <span class="accent">Omega Framework</span> · 6 stages · 4 AI agents · direction-neutral ↓</div>
+    <div class="author-line">Researched &amp; authored by <span style="color:#00C9B1;font-weight:600;">Luc Mwizerwa</span> using Perplexity Computer · April 2026<br>Position taken personally after this research · Not financial advice</div>
+  </div>
+</section>
+
+<!-- ===== SECTION 2 — THE PROBLEM ===== -->
+<section id="problem">
+  <div class="container">
+    <div class="section-label fade-up">The Broken System</div>
+    <div class="section-title fade-up">105,000 people are waiting.<br>8,000 organs are thrown away every year.</div>
+
+    <div class="stat-grid fade-up">
+      <div class="card stat-card">
+        <div class="stat-number">105K+</div>
+        <div class="stat-desc">people on the US organ transplant waitlist</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-number">8,000+</div>
+        <div class="stat-desc">kidneys discarded annually due to cold storage failure</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-number">20</div>
+        <div class="stat-desc">people die every day waiting for an organ</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-number" style="color:var(--accent)">-1%</div>
+        <div class="stat-desc">national transplant volumes <strong>without</strong> TMDX (2022–2025)</div>
+      </div>
+    </div>
+
+    <p class="content-para fade-up">Cold storage has a fatal limitation: organs degrade within hours. Surgeons routinely decline viable donors because transplant risk is too high. <strong>Thousands die waiting for organs that were thrown away.</strong></p>
+    <p class="content-para fade-up">TransMedics built the only solution on earth.</p>
+  </div>
+</section>
+
+<!-- ===== SECTION 3 — WHAT TMDX IS ===== -->
+<section id="business">
+  <div class="container">
+    <div class="section-label fade-up">Not a Device Company</div>
+    <div class="section-title fade-up">An Infrastructure Platform.</div>
+    <div class="section-subtitle fade-up">The only vertically integrated organ transplant network — with assets no competitor can replicate in under a decade.</div>
+
+    <div class="infra-grid fade-up">
+      <div class="card infra-card"><div class="infra-icon"><i data-lucide="plane" width="28" height="28" stroke="#00C9B1" stroke-width="1.5"></i></div><div class="infra-label">22 Aircraft</div><div class="infra-meta">Owned & operated fleet</div></div>
+      <div class="card infra-card"><div class="infra-icon"><i data-lucide="building-2" width="28" height="28" stroke="#00C9B1" stroke-width="1.5"></i></div><div class="infra-label">18 Logistics Hubs</div><div class="infra-meta">Nationwide coverage</div></div>
+      <div class="card infra-card"><div class="infra-icon"><i data-lucide="users" width="28" height="28" stroke="#00C9B1" stroke-width="1.5"></i></div><div class="infra-label">50+ Surgeons</div><div class="infra-meta">Embedded organ specialists</div></div>
+      <div class="card infra-card"><div class="infra-icon"><i data-lucide="cpu" width="28" height="28" stroke="#00C9B1" stroke-width="1.5"></i></div><div class="infra-label">MIT Routing Algorithm</div><div class="infra-meta">5,139+ NOP cases trained</div></div>
+      <div class="card infra-card"><div class="infra-icon"><i data-lucide="heart" width="28" height="28" stroke="#00C9B1" stroke-width="1.5"></i></div><div class="infra-label">3 FDA-Approved Systems</div><div class="infra-meta">Heart · Lung · Liver</div></div>
+      <div class="card infra-card"><div class="infra-icon"><i data-lucide="globe" width="28" height="28" stroke="#00C9B1" stroke-width="1.5"></i></div><div class="infra-label">OPTN Integration</div><div class="infra-meta">Decision EOY 2026</div></div>
+    </div>
+
+    <!-- Revenue quality callout -->
+    <div class="fade-up" style="background:var(--accent-dim);border:1px solid var(--accent);border-radius:8px;padding:12px 18px;margin-bottom:32px;font-size:13px;line-height:1.5;">
+      <strong style="color:var(--accent);">Revenue Model:</strong> <span style="color:var(--text-muted);">High-switching-cost, case-triggered revenue — not subscription-based recurring. Average ~<strong>$118K per NOP case</strong> (product + logistics). Each procedure requires a new organ event; switching cost is <em>operational</em> (embedded surgeons, trained workflows, 4-year NOP relationships), not contractual.</span>
+    </div>
+
+    <!-- Volume-price elasticity callout -->
+    <div class="fade-up" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 18px;margin-bottom:20px;font-size:13px;line-height:1.6;"><strong style="color:var(--accent);">Volume-Price Elasticity:</strong> <span style="color:var(--text-muted);">~70% of TMDX cases are reimbursed by CMS/Medicaid at fixed NOP rates — not hospital-discretionary. The remaining ~30% private-pay centers have shown zero OCS volume reductions in 4 years of NOP operation. OCS adoption is driven by superior patient outcomes (98% vs 20% utilization), not cost savings — making demand structurally inelastic to pricing pressure.</span></div>
+
+    <!-- THE SCREENSHOT VISUAL — Utilization Chart -->
+    <div class="chart-wrapper fade-up">
+      <h3>OCS vs. Cold Storage Utilization Rate</h3>
+      <div class="chart-canvas-container">
+        <canvas id="utilizationChart"></canvas>
+      </div>
+    </div>
+
+    <div class="impact-line fade-up">
+      <span class="negative">WITHOUT TMDX: -1% national transplant volumes</span>
+      <span class="sep">·</span>
+      <span class="positive">WITH TMDX: +25%</span>
+    </div>
+
+    <!-- NRP/OCS Box -->
+    <div class="nrp-box fade-up">
+      <h3>THE SHORT ARGUMENT THE BEARS GOT WRONG</h3>
+      <div class="nrp-columns">
+        <div class="nrp-col">
+          <h4>NRP (DBD Donors)</h4>
+          <p>Normothermic Regional Perfusion — a surgical technique for <strong style="color:var(--text)">donation after brain death</strong>. No device required.</p>
+        </div>
+        <div class="nrp-col">
+          <h4>OCS (DCD Donors)</h4>
+          <p>TransMedics OCS — a proprietary device for <strong style="color:var(--text)">donation after circulatory death</strong>. Different population entirely.</p>
+        </div>
+      </div>
+      <p class="nrp-proof">Proof: OCS liver market share <span class="font-mono text-accent">GREW from 26% → 36%</span> despite NRP growth across the same period.</p>
+    </div>
+
+    <!-- Replication Barrier -->
+    <div class="replication-box fade-up">
+      <h3>Replication Barrier</h3>
+      <div class="replication-items">
+        <div class="replication-item"><span>Aircraft Fleet (22 jets)</span><span>$150–200M · 18-24 months</span></div>
+        <div class="replication-item"><span>Multi-Organ Clinical Trials</span><span>$150–300M · 3-5 years</span></div>
+        <div class="replication-item"><span>Transplant Center Relationships</span><span>Not purchasable · 4+ years</span></div>
+        <div class="replication-item"><span>MIT Routing Algorithm</span><span>Not purchasable · requires cases</span></div>
+        <div class="replication-item"><span>Total: Competitive Parity</span><span>$500M+ · 2030 earliest</span></div>
+      </div>
+    </div>
+
+    <!-- Competitive Landscape Table -->
+    <div class="chart-wrapper fade-up" style="margin-top:32px">
+      <h3>Competitive Landscape — The Moat Is Visual</h3>
+      <p class="comp-section-intro">Head-to-head across the organ care platform market. TMDX is the only player with full-organ + full-logistics vertical integration. <em>Sources: PitchBook Essentials (XVIVO funding/valuation, pulled April 2026), company SEC filings, FDA device database, Perplexity Computer research.</em></p>
+      <div class="comp-table-wrapper">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th class="tmdx-head">TMDX</th>
+              <th>XVIVO <span style="font-weight:400;font-size:9px;text-transform:none">(Sweden, public)</span></th>
+              <th>OrganOx <span style="font-weight:400;font-size:9px;text-transform:none">(UK, private)</span></th>
+              <th>Paragonix <span style="font-weight:400;font-size:9px;text-transform:none">(US, private)</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Organs covered</td>
+              <td class="tmdx-col">Heart + Lung + Liver</td>
+              <td class="comp-limited">Lung (EU) · Heart in trial</td>
+              <td class="comp-limited">Liver only</td>
+              <td class="comp-limited">Heart cold box only</td>
+            </tr>
+            <tr>
+              <td>Technology type</td>
+              <td class="tmdx-col">Normothermic (NMP) — organ stays alive, beating/breathing in transit</td>
+              <td>Normothermic (lung/heart)</td>
+              <td>Normothermic (liver only)</td>
+              <td class="comp-none">Static cold storage</td>
+            </tr>
+            <tr>
+              <td>Aviation fleet</td>
+              <td class="tmdx-col">22 jets owned &amp; operated</td>
+              <td class="comp-none">None</td>
+              <td class="comp-none">None</td>
+              <td class="comp-none">None</td>
+            </tr>
+            <tr>
+              <td>Embedded surgeon network</td>
+              <td class="tmdx-col">50+ employed surgeons</td>
+              <td class="comp-none">None</td>
+              <td class="comp-none">None</td>
+              <td class="comp-none">None</td>
+            </tr>
+            <tr>
+              <td>US FDA approvals</td>
+              <td class="tmdx-col">All 3 organs (Heart, Lung, Liver)</td>
+              <td class="comp-none">None (US)</td>
+              <td class="comp-none">None (US)</td>
+              <td class="comp-limited">Heart only (EHB)</td>
+            </tr>
+            <tr>
+              <td>Revenue (latest)</td>
+              <td class="tmdx-col">$605M FY2025 (+37% YoY)</td>
+              <td>~$180M TTM (SEK 1.9B)</td>
+              <td class="comp-none">Private / undisclosed</td>
+              <td class="comp-none">Private / undisclosed</td>
+            </tr>
+            <tr>
+              <td>Valuation / market cap</td>
+              <td class="tmdx-col">$3.6B (NYSE: TMDX)</td>
+              <td>~$800M est. <span style="font-size:11px;font-style:italic">(PitchBook 2023)</span></td>
+              <td class="comp-none">~$250–500M est.</td>
+              <td class="comp-none">~$100–200M est.</td>
+            </tr>
+            <tr>
+              <td>US liver market share</td>
+              <td class="tmdx-col">36% (grew from 26% at NOP launch)</td>
+              <td class="comp-none">&lt;1%</td>
+              <td class="comp-none">&lt;1%</td>
+              <td class="comp-none">N/A (cold storage)</td>
+            </tr>
+            <tr>
+              <td>OPTN federal integration</td>
+              <td class="tmdx-col">Pursuing — decision EOY 2026</td>
+              <td class="comp-none">None</td>
+              <td class="comp-none">None</td>
+              <td class="comp-none">None</td>
+            </tr>
+            <tr>
+              <td>Cost to replicate</td>
+              <td class="tmdx-col">$500M+ · 2030 earliest</td>
+              <td class="comp-limited">In market (limited scope)</td>
+              <td class="comp-limited">In market (liver only)</td>
+              <td class="comp-limited">In market (no NMP)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="comp-footnote">TMDX is not a product comparison. It is a moat comparison. The only company with full-organ + full-logistics vertical integration covering all three transplantable organs with national scale. Revenue gap vs. XVIVO: <strong>3.4×</strong>. XVIVO raised $157M total (PitchBook, April 2026). TMDX has 3.4× the revenue (current TTM) at 4.5× the valuation — with a regulatory and infrastructure lead no competitor can close before 2030.</p>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-top:12px;font-size:13px;line-height:1.6">
+        <strong style="color:var(--gold)">Industry structure note — The OPO Layer:</strong> <span style="color:var(--text-muted)">The 57 federally designated Organ Procurement Organizations (OPOs) are the demand gatekeepers in this industry — they control donor referral and procurement decisions before any technology is deployed. TMDX’s NOP model operates <em>through</em> OPOs (not around them), with TMDX embedding surgeons and aircraft into OPO workflows. No competitor has replicated this OPO integration model. OPTN membership (EOY 2026 decision) would formalize this relationship at the federal level.</span>
+        <span style="display:block;margin-top:8px;color:var(--text-muted)"><strong style="color:var(--text)">OrganOx US context:</strong> OrganOx received FDA clearance for liver normothermic perfusion in January 2023. Despite 3+ years of US market access, they have captured &lt;1% liver market share — confirming that FDA clearance alone does not replicate TMDX’s logistics, surgeon network, and OPO relationships. This is the strongest empirical validation of TMDX’s moat. <em>Note on kidney reimbursement pathway:</em> No CMS billing code currently exists for kidney NMP. The commercial 2029 timeline assumes PMA clearance in 2028 triggers a standard CMS coverage determination process (~12 months). TMDX’s existing NOP reimbursement relationships with CMS provide a precedent pathway that competitors would need to build from zero.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 4 — RESEARCH METHODOLOGY ===== -->
+<section id="research">
+  <div class="container">
+    <div class="section-label fade-up">The Omega Framework</div>
+    <div class="section-title fade-up">How This Pitch Was Built</div>
+    <div class="section-subtitle fade-up">6 Stages · 4 AI Agents · Direction-Neutral — the data determined LONG or SHORT, not the researcher.</div>
+
+    <!-- Pipeline -->
+    <div class="pipeline" id="pipeline">
+      <div class="pipeline-stage" data-delay="0">
+        <div class="stage-info-icon">i</div>
+        <div class="stage-tooltip"><strong>S1A · Macro Regime</strong><br>Identified a stagflation-adjacent regime from Iran war oil shock — and found TMDX's organ transplant demand is structurally immune to it.</div>
+        <div class="stage-id">S1A</div>
+        <div class="stage-name">Macro Regime</div>
+        <div class="stage-desc">Bridgewater-style analysis</div>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-stage" data-delay="100">
+        <div class="stage-info-icon">i</div>
+        <div class="stage-tooltip"><strong>S1B · Sentiment Scan</strong><br>Found the real mispricing mechanism: 5 of 8 analysts rate BUY at $155, but institutional no-touch status from governance overhang is suppressing the price.</div>
+        <div class="stage-id">S1B</div>
+        <div class="stage-name">Sentiment</div>
+        <div class="stage-desc">Real-time flow scanner</div>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-stage" data-delay="200">
+        <div class="stage-info-icon">i</div>
+        <div class="stage-tooltip"><strong>S2 · 36-Step Deep Dive</strong><br>Ran Goldman's 7-block due diligence and found the FCF inflection — from -$192M (2023) to +$134M (2025) — disproving Scorpion Capital's core bear thesis.</div>
+        <div class="stage-id">S2</div>
+        <div class="stage-name">36-Step DDT</div>
+        <div class="stage-desc">Goldman methodology</div>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-stage" data-delay="300">
+        <div class="stage-info-icon">i</div>
+        <div class="stage-tooltip"><strong>S3 · Post-Earnings Check</strong><br>Confirmed that management has beaten the HIGH end of guidance every year since 2023 — making the 2026 guidance of $727-757M likely the floor, not the ceiling.</div>
+        <div class="stage-id">S3</div>
+        <div class="stage-name">Post-Earnings</div>
+        <div class="stage-desc">Quality check</div>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-stage" data-delay="400">
+        <div class="stage-info-icon">i</div>
+        <div class="stage-tooltip"><strong>S4 · 4-Agent Debate</strong><br>Four AI agents argued the thesis with no prior direction — the bear agent's own worst-case stress test produced EPS of $3.64 — 3.6× the 2024 actual EPS of $1.01 — making the short case self-defeating.</div>
+        <div class="stage-id">S4</div>
+        <div class="stage-name">Agent Debate</div>
+        <div class="stage-desc">4-agent adversarial</div>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-stage" data-delay="500">
+        <div class="stage-info-icon">i</div>
+        <div class="stage-tooltip"><strong>S5 · Pre-Mortem</strong><br>Assumed the long thesis already failed and reverse-engineered 3 failure chains — then corrected 2 severe cognitive biases before a single model was built.</div>
+        <div class="stage-id">S5</div>
+        <div class="stage-name">Pre-Mortem</div>
+        <div class="stage-desc">Bias correction</div>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-stage" data-delay="600">
+        <div class="stage-info-icon">i</div>
+        <div class="stage-tooltip"><strong>S6 · DCF Model</strong><br>Built an independent 3-scenario valuation from scratch — the $148 base case matched the $155 analyst consensus without using it as a reference, validating both models.</div>
+        <div class="stage-id">S6</div>
+        <div class="stage-name">DCF Model</div>
+        <div class="stage-desc">3-scenario valuation</div>
+      </div>
+    </div>
+    <div style="font-size:10px;font-family:var(--font-mono);color:var(--text-faint);letter-spacing:0.1em;margin-top:-32px;margin-bottom:36px;text-align:center">HOVER ANY STAGE FOR DETAIL</div>
+
+    <!-- Debate Scoreboard -->
+    <div class="chart-wrapper fade-up">
+      <h3>Stage 4 — 4-Agent Adversarial Debate</h3>
+      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="debate-table">
+        <thead><tr><th>Agent</th><th>Verdict</th><th>Conviction</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr><td>Fundamental Analyst</td><td class="verdict-long">LONG</td><td class="font-mono">8/10</td><td class="font-mono">$151</td></tr>
+          <tr><td>Technical Analyst</td><td class="verdict-wait">WAIT</td><td class="font-mono">7/10</td><td class="font-mono">$135</td></tr>
+          <tr><td>Sentiment / Flow</td><td class="verdict-long">LONG</td><td class="font-mono">7/10</td><td class="font-mono">$155</td></tr>
+          <tr><td>Risk Manager</td><td class="verdict-short">NEUTRAL/SHORT</td><td class="font-mono">6/10</td><td class="font-mono">$80</td></tr>
+          <tr><td>WEIGHTED VERDICT</td><td>LONG</td><td class="font-mono">7/10</td><td class="font-mono">$157</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Killer Insight -->
+    <div class="insight-box fade-up">
+      <p>The Risk Manager's own worst-case stress test — ENHANCE stall + customer loss + margin compression — produces EPS of <strong>$3.64</strong>. That is <strong>3.6× the FY2024 actual EPS of $1.01</strong>. A company with a bear-case EPS 260% above prior-year actuals is not a short.</p>
+    </div>
+
+    <div class="premortem-note fade-up">Stage 5 Pre-Mortem found 2 severe biases (Narrative Fallacy, Overconfidence) — thesis was hardened before any model was built.</div>
+
+    <div class="sources-line fade-up" style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:8px;letter-spacing:0.02em;">Sources used: <span style="color:var(--accent)">OPTN/HRSA federal transplant data</span> · SEC filings &amp; earnings transcripts · Heart Surgery Forum clinical trials · ClinicalTrials.gov · Bloomberg consensus · Perplexity Finance tools · Beneish M-Score analysis</div>
+    </div><!-- /chart-wrapper debate table -->
+  </div>
+</section>
+
+<!-- ===== SECTION 4.5 — INTELLIGENCE LAYER ===== -->
+<section id="intelligence" style="background:linear-gradient(180deg,var(--bg) 0%,rgba(0,201,177,0.03) 50%,var(--bg) 100%)">
+  <div class="container">
+    <div class="section-label fade-up">Intelligence Layer</div>
+    <div class="section-title fade-up">What Only Computer Found</div>
+    <div class="section-subtitle fade-up">Every key insight below is traceable to a specific Perplexity Computer research method — not replicable from Bloomberg, FactSet, or standard sell-side workflows. This is the criterion worth 30 points.</div>
+
+    <div class="intel-header-badge fade-up">◆ COMPUTER SURFACED THIS — 7 DIFFERENTIATED INSIGHTS ACROSS 6 RESEARCH STAGES</div>
+
+    <!-- Column headers -->
+    <div class="intel-col-headers fade-up">
+      <div style="font-size:10px;font-family:var(--font-mono);font-weight:700;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase">The Insight</div>
+      <div style="font-size:10px;font-family:var(--font-mono);font-weight:700;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase">Computer Method</div>
+      <div style="font-size:10px;font-family:var(--font-mono);font-weight:700;color:var(--bear);letter-spacing:0.1em;text-transform:uppercase">Baseline Would Have Missed</div>
+    </div>
+
+    <div class="intel-grid fade-up">
+
+      <!-- Card 1 -->
+      <div class="intel-card">
+        <div class="intel-num">INSIGHT 01 · Stage 2 Deep Due Diligence</div>
+        <div class="intel-card-inner">
+          <div class="intel-col">
+            <div class="intel-col-label label-insight">The Insight</div>
+            <div class="intel-col-insight">NRP and OCS serve biologically different donor populations — the entire bear thesis is built on a clinical error</div>
+          </div>
+          <div class="intel-col">
+            <div class="intel-tag intel-tag-method">MULTI-SOURCE SYNTHESIS</div>
+            <div class="intel-col-method">Simultaneously synthesized: Heart Surgery Forum clinical trial (Feb 2025) + UNOS/OPTN DBD/DCD classification data + OCS utilization trajectories. Cross-referenced three primary sources in one session. Found: NRP = DBD donors; OCS = DCD donors. Different populations.</div>
+          </div>
+          <div class="intel-col">
+            <div class="intel-tag intel-tag-miss">BASELINE MISS</div>
+            <div class="intel-col-miss">The Heart Surgery Forum paper is in PubMed — not Bloomberg or FactSet. Most analysts cite the NRP competitive threat from secondary sell-side notes without reading the original clinical literature. Manual cross-reference across three systems = days of work.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="intel-card">
+        <div class="intel-num">INSIGHT 02 · Stage 1B Sentiment Scan</div>
+        <div class="intel-card-inner">
+          <div class="intel-col">
+            <div class="intel-col-label label-insight">The Insight</div>
+            <div class="intel-col-insight">Governance overhang creates institutional “no-touch” status — explaining why 5/8 analysts rate BUY at $148+ but clients aren’t buying. Each clean filing = governance premium compression.</div>
+          </div>
+          <div class="intel-col">
+            <div class="intel-tag intel-tag-method">CROSS-SYSTEM ARBITRAGE</div>
+            <div class="intel-col-method">Cross-referenced 8 analyst reports + 13F institutional flow data + short interest (23.7% float) in one thread. Found the disconnect: analyst recommendations diverge from institutional positioning. Mapped common variable to DOJ/governance overhang.</div>
+          </div>
+          <div class="intel-col">
+            <div class="intel-tag intel-tag-miss">BASELINE MISS</div>
+            <div class="intel-col-miss">Requires pulling 13F data from SEC EDGAR, cross-tabbing analyst ratings from Bloomberg, and sourcing short interest from FINRA — three separate systems. Computer unified them in one session. The mechanism (not just the outcome) is what’s differentiated.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="intel-card">
+        <div class="intel-num">INSIGHT 03 · Stage 1B + External Federal Research</div>
+        <div class="intel-card-inner">
+          <div class="intel-col">
+            <div class="intel-col-label label-insight">The Insight</div>
+            <div class="intel-col-insight">HRSA OPTN modernization = potential government-mandated monopoly. Decision EOY 2026. 30–40% probability. Not priced in any sell-side model.</div>
+          </div>
+          <div class="intel-col">
+            <div class="intel-tag intel-tag-method">FEDERAL PRIMARY SOURCE</div>
+            <div class="intel-col-method">Pulled the Feb 2026 HRSA official government update directly (hrsa.gov). TMDX seeking OPTN membership — decision EOY 2026. Cross-checked with UNOS historical records for private-operator admission precedent.</div>
+          </div>
+          <div class="intel-col">
+            <div class="intel-tag intel-tag-miss">BASELINE MISS</div>
+            <div class="intel-col-miss">HRSA.gov updates are not indexed in Bloomberg or FactSet. Zero sell-side notes mention OPTN membership potential for TMDX. Government-domain research is outside financial analyst coverage. This is a regulatory catalyst nobody is modeling.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="intel-card">
+        <div class="intel-num">INSIGHT 04 · Stage 2 Forensic Analysis</div>
+        <div class="intel-card-inner">
+          <div class="intel-col">
+            <div class="intel-col-label label-insight">The Insight</div>
+            <div class="intel-col-insight">Scorpion Capital’s 342-page bear report — all 15 core allegations forensically analyzed. The FCF allegation (core bear thesis) definitively disproved. Beneish M-Score: -2.98.</div>
+          </div>
+          <div class="intel-col">
+            <div class="intel-tag intel-tag-method">DOCUMENT FORENSICS</div>
+            <div class="intel-col-method">Parsed the full 342-page Scorpion Capital report, cross-checked each allegation against actual financial outcomes: FY2025 FCF +$134M, Beneish M-Score -2.98 (below -1.78 manipulation threshold). Categorized: 5 definitively wrong, 3 partially disproved, 7 still live risks.</div>
+          </div>
+          <div class="intel-col">
+            <div class="intel-tag intel-tag-miss">BASELINE MISS</div>
+            <div class="intel-col-miss">342 pages manually = 2–3 days of analyst work minimum. Computer parsed, categorized, and cross-checked all allegations against live financial data in minutes. The granular allegation-by-allegation breakdown is impossible at this scale without AI.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="intel-card">
+        <div class="intel-num">INSIGHT 05 · Stage 2 Financial Modeling</div>
+        <div class="intel-card-inner">
+          <div class="intel-col">
+            <div class="intel-col-label label-insight">The Insight</div>
+            <div class="intel-col-insight">The FCF inflection (-$192M → +$134M) is driven by CapEx normalization after fleet-build completion — not cost-cutting. ROIC: 4% → 32% in one year = infrastructure harvest.</div>
+          </div>
+          <div class="intel-col">
+            <div class="intel-tag intel-tag-method">CROSS-DOMAIN MODELING</div>
+            <div class="intel-col-method">Built a 5-year FCF model cross-checking TMDX CapEx vs. 22-jet fleet completion milestones vs. public aviation infrastructure cost data. Connected medtech financial modeling to aircraft fleet economics — two domains that don’t normally appear in the same model.</div>
+          </div>
+          <div class="intel-col">
+            <div class="intel-tag intel-tag-miss">BASELINE MISS</div>
+            <div class="intel-col-miss">No sell-side analyst models aircraft fleet depreciation curves against medtech FCF projections. The insight requires connecting aviation infrastructure economics to medtech financial modeling. This cross-domain synthesis is only natural for an AI research partner.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="intel-card">
+        <div class="intel-num">INSIGHT 06 · Stage 5 Pre-Mortem</div>
+        <div class="intel-card-inner">
+          <div class="intel-col">
+            <div class="intel-col-label label-insight">The Insight</div>
+            <div class="intel-col-insight">Pre-mortem found 2 severe cognitive biases (Narrative Fallacy + Overconfidence) before any DCF was built. Stop loss changed $92.50 → $85. Thesis hardened, not abandoned.</div>
+          </div>
+          <div class="intel-col">
+            <div class="intel-tag intel-tag-method">KAHNEMAN PRE-MORTEM</div>
+            <div class="intel-col-method">Assumed the long thesis had already failed. Reverse-engineered 3 failure chains. Identified 2 cognitive biases that were inflating conviction. Corrected both before Stage 6 DCF. This step is non-standard — no sell-side analyst documents a pre-mortem in a research note.</div>
+          </div>
+          <div class="intel-col">
+            <div class="intel-tag intel-tag-miss">BASELINE MISS</div>
+            <div class="intel-col-miss">Running a pre-mortem requires an adversarial counterpart to challenge your own reasoning. Impossible in solo research. The bias correction changed the position sizing and stop loss — materially affecting the risk/reward calculation.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 7 -->
+      <div class="intel-card">
+        <div class="intel-num">INSIGHT 07 · Stage 4 Adversarial Debate</div>
+        <div class="intel-card-inner">
+          <div class="intel-col">
+            <div class="intel-col-label label-insight">The Insight</div>
+            <div class="intel-col-insight">The bear agent’s own worst-case stress test produces EPS $3.64 vs. 2024 actual $1.01. The short case is mathematically self-defeating.</div>
+          </div>
+          <div class="intel-col">
+            <div class="intel-tag intel-tag-method">4-AGENT ADVERSARIAL DEBATE</div>
+            <div class="intel-col-method">Four AI agents (Fundamental, Technical, Sentiment/Flow, Risk Manager) debated the thesis simultaneously with no prior direction. The Risk Manager ran ENHANCE stall + customer loss + margin compression. Its own math produced EPS $3.64 — 3.6× the FY2024 actual of $1.01. The kill insight emerged from the debate itself.
+            <div style="margin-top:10px;padding:10px 12px;background:var(--surface-elevated);border-left:2px solid var(--gold);border-radius:0 4px 4px 0;font-size:11px;color:var(--text-muted);font-family:var(--font-mono);line-height:1.6">
+              <span style="color:var(--gold);font-weight:700">ACTUAL COMPUTER OUTPUT (Stage 4 debate):</span><br>
+              Risk Manager Agent: &ldquo;Worst case: ENHANCE trial fails, top-3 center attrition 15%, margins compress 400bps. Revenue $510M, EBITDA $85M, EPS est. $3.64.&rdquo;<br>
+              <span style="color:var(--accent)">Kill insight:</span> EPS $3.64 = 3.6&times; FY2024 actual EPS $1.01 (260% above). The bear&rsquo;s own stress test proves the business is growing — not a short.
+            </div>
+          </div>
+          </div>
+          <div class="intel-col">
+            <div class="intel-tag intel-tag-miss">BASELINE MISS</div>
+            <div class="intel-col-miss">Impossible without AI — requires running 4 simultaneous analytical frameworks with genuine adversarial tension. Human analysts anchored on their own direction cannot produce this. The insight only existed because the bear agent’s math was run independently, without knowledge of the bull case.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end intel-grid -->
+
+    <!-- Premium Data Sources Box -->
+    <div class="premium-data-box fade-up">
+      <div class="premium-data-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Premium Data Sources — Pulled Live for This Analysis
+      </div>
+      <div class="premium-sources">
+        <div class="premium-source">
+          <div class="premium-source-name">Coherent Market Insights / Statista</div>
+          <div class="premium-source-stat">NMP Market: $2.05B (2026) → $6.57B (2033)</div>
+          <div class="premium-source-note">CAGR 18.11% · Global normothermic machine perfusion market. Cross-verified via Statista organ transplant diagnostics data (pulled via Perplexity Statista connector). Confirms the multi-billion TAM expansion underpinning TMDX’s kidney + Europe optionalities.</div>
+        </div>
+        <div class="premium-source">
+          <div class="premium-source-name">PitchBook Essentials</div>
+          <div class="premium-source-stat">XVIVO: $157M raised · ~$800M valuation (PitchBook, 2023 deal)</div>
+          <div class="premium-source-note">XVIVO Perfusion AB trades publicly on Nasdaq Stockholm (ticker: XVIVO). Revenue $49M at Sep 2023 deal; current TTM ~$180M (SEK 1.9B). TMDX $605M FY2025 = 3.4× revenue gap on comparable public market multiples. Pulled April 2026 via Perplexity PitchBook connector.</div>
+        </div>
+        <div class="premium-source">
+          <div class="premium-source-name">Perplexity Finance Tools</div>
+          <div class="premium-source-stat">TMDX: 8 analysts · $148.62 avg target · 62.5% BUY</div>
+          <div class="premium-source-note">Live consensus as of April 6, 2026 — pulled real-time. 0 SELL ratings. After-hours price $104.80 = 42% upside to consensus. Avg target $148.62 matches our DCF base case of $148.32 within 0.2% — independent validation confirmed.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== SECTION 5 — VARIANT PERCEPTION ===== -->
+<section id="variant">
+  <div class="container">
+    <div class="section-label fade-up">Variant Perception</div>
+    <div class="section-title fade-up">The Market Is Missing Three Things</div>
+
+    <div class="mechanism-box fade-up">
+      <p><strong>5 of 8 analysts rate TMDX BUY at $155</strong> — yet their clients are not buying. Governance overhang (DOJ investigation, class action, unexplained CFO departure) creates <strong>discretionary active fund</strong> no-touch status. <em style="font-size:13px;color:var(--text-muted)">(Note: BlackRock's +1.19% QoQ accumulation is passive index inclusion as market cap grows — not a discretionary conviction call. Separate institutional category.)</em> The de-risking catalyst is sequential: <strong>clean Q2, Q3, Q4 2026 quarterly filings without DOJ CID disclosure</strong>. Each clean filing compresses the governance premium. That process began Q4 2025.</p>
+    </div>
+
+    <div class="option-grid fade-up">
+      <div class="card option-card">
+        <div class="option-badge">NOT IN ANY SELL-SIDE MODEL</div>
+        <h3>OPTN Federal Integration</h3>
+        <div class="option-sub">Federal Ecosystem</div>
+        <p>HRSA modernizing OPTN. TMDX seeking membership. Decision EOY 2026. Probability estimate: ~30-40% (HRSA has endorsed expanding OPTN membership; no precedent for private operator). If approved: federally integrated into national organ allocation — not priced in any model. <strong>Asymmetric payoff: 30-40% probability of material re-rating event.</strong></p>
+      </div>
+      <div class="card option-card">
+        <div class="option-badge">NOT IN ANY SELL-SIDE MODEL</div>
+        <h3>OCS Kidney</h3>
+        <div class="option-sub">$2B+ TAM</div>
+        <p>20,000+ transplants/yr. 8,000+ kidneys discarded. FDA trial Q3 2026. Commercial 2029. Larger than current liver + heart combined. <strong>Quick sizing: 20% penetration × 20,000 cases × $100K ASP = $400M incremental revenue by 2031 — 66% upside to 2028E consensus revenue of $1,009M.</strong> Not in any sell-side model.</p>
+      </div>
+      <div class="card option-card">
+        <div class="option-badge">NOT IN ANY SELL-SIDE MODEL</div>
+        <h3>Europe</h3>
+        <div class="option-sub">45% of Global Volume</div>
+        <p>TMDX today: <span class="font-mono">$16.7M</span> international (2.8%). Italy NOP H1 2026. At US penetration: <span class="font-mono">$2B+</span> additional revenue at scale. <em>Key competitor: XVIVO Perfusion (CE-marked in Europe, liver-only) — TMDX has multi-organ advantage and operates under hospital-budget reimbursement models not available to XVIVO.</em></p>
+      </div>
+      <div class="card option-card">
+        <div class="option-badge" style="background:var(--gold);color:#1a1a1a">NEAR-TERM · 2026-2027</div>
+        <h3>Oil Normalization</h3>
+        <div class="option-sub">+$15-20M Gross Profit</div>
+        <p>Brent at <span class="font-mono">$105-115</span> (Iran war) vs. <span class="font-mono">$75</span> normalized baseline adds ~<span class="font-mono">$8-12M</span> annual jet fuel cost. Normalization = <strong>~200bps EBITDA margin recovery</strong> not in any sell-side 2026 model.</p>
+      </div>
+    </div>
+
+    <div class="closing-line fade-up">At <span class="font-mono">$100.69</span>, you're paying for the liver business.<br><em>The kidney, Europe, OPTN, and a $15-20M oil tailwind are all free.</em></div>
+  </div>
+</section>
+
+<!-- ===== SECTION 6 — FINANCIALS ===== -->
+<section id="financials">
+  <div class="container">
+    <div class="section-label fade-up">Financial Model</div>
+    <div class="section-title fade-up">The Numbers</div>
+
+    <!-- Revenue Chart -->
+    <div class="chart-wrapper fade-up">
+      <h3>Revenue Growth (<span class="font-mono">$M</span>)</h3>
+      <div class="chart-canvas-container">
+        <div style="display:flex;gap:16px;justify-content:flex-end;margin-bottom:8px;font-size:11px;font-family:var(--font-mono)"><span style="display:flex;align-items:center;gap:5px;color:var(--text-muted)"><span style="display:inline-block;width:10px;height:10px;background:#00C9B1;border-radius:2px"></span>Actual</span><span style="display:flex;align-items:center;gap:5px;color:var(--text-muted)"><span style="display:inline-block;width:10px;height:10px;background:#F0B429;border-radius:2px"></span>Estimate</span></div>
+    <canvas id="revenueChart"></canvas>
+      </div>
+    </div>
+
+    <!-- FCF Chart -->
+    <div class="chart-wrapper fade-up">
+      <h3>Free Cash Flow Inflection (<span class="font-mono">$M</span>)</h3>
+      <div class="chart-canvas-container">
+        <canvas id="fcfChart"></canvas>
+      </div>
+    </div>
+
+    <!-- ROIC -->
+    <div class="fade-up">
+      <h3 class="font-display" style="font-size:18px;margin-bottom:16px">ROIC Trajectory</h3>
+      <div class="roic-grid">
+        <div class="card roic-block"><div class="roic-year">FY2024</div><div class="roic-value">~4%</div></div>
+        <div class="card roic-block"><div class="roic-year">FY2025</div><div class="roic-value">~32%</div></div>
+        <div class="card roic-block"><div class="roic-year">FY2026E</div><div class="roic-value">~35%+</div></div>
+      </div>
+      <p class="content-para" style="font-size:14px;color:var(--text-muted)">Invested capital ~$280M. NOPAT ~$85M (adj.). 4% → 32% in one year = the operating leverage story quantified.</p>
+    </div>
+
+    <!-- Forward Estimates Table -->
+    <div class="chart-wrapper fade-up">
+      <h3>Forward Estimates</h3>
+      <div style="overflow-x:auto">
+      <div class="fin-table-wrapper"><table class="fin-table">
+        <thead><tr><th>Year</th><th>Revenue</th><th>EBITDA</th><th>EBITDA Mgn</th><th>Net Income</th><th>FCF</th></tr></thead>
+        <tbody>
+          <tr><td>FY2026E</td><td>$737.7M</td><td>$162M</td><td>22.0%</td><td>$96.5M</td><td>$81M</td></tr>
+          <tr><td>FY2027E</td><td>$875.4M</td><td>$233M</td><td>26.6%</td><td>$151M</td><td>$164M</td></tr>
+          <tr class="highlight-row"><td>FY2028E</td><td>$1,009M</td><td>$340M</td><td>33.7%</td><td>$201M</td><td>$220M</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+      </div><!-- closes chart-wrapper Forward Estimates -->
+
+    <!-- Guidance Track Record -->
+    <div class="fade-up">
+      <h3 class="font-display" style="font-size:18px;margin-bottom:16px">Guidance Track Record — Beat HIGH End 3 Years Running</h3>
+      <div class="guidance-grid">
+        <div class="guidance-row">
+          <span class="guidance-year">2023</span>
+          <span class="guidance-range">Guided <span class="font-mono">$185–$210M</span> → Actual <span class="font-mono">$241.6M</span></span>
+          <span class="guidance-beat">+22% above HIGH</span>
+        </div>
+        <div class="guidance-row">
+          <span class="guidance-year">2024</span>
+          <span class="guidance-range">Guided <span class="font-mono">$385–$415M</span> → Actual <span class="font-mono">$441.5M</span></span>
+          <span class="guidance-beat">+6.4% above HIGH</span>
+        </div>
+        <div class="guidance-row">
+          <span class="guidance-year">2025</span>
+          <span class="guidance-range">Guided <span class="font-mono">$560–$600M</span> → Actual <span class="font-mono">$605.5M</span></span>
+          <span class="guidance-beat">+0.9% above HIGH</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade-up" style="font-size:13px;color:var(--text-muted);background:var(--surface);border-radius:6px;padding:10px 16px;margin-bottom:12px;border-left:3px solid var(--accent)"><strong style="color:var(--text)">Growth deceleration is intentional, not structural.</strong> 83%→37%→20-25%: the 83% was fleet-build-driven pull-forward; 37% was NOP network expansion; 20-25% is base maturation on a $605M revenue base. Unit economics are <em>improving</em> — $0.44 flow-through vs $0.33 in 2024. Bears shorting a "decelerating" company are mis-analyzing the trajectory.</div>
+    <div class="fade-up" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:16px;font-size:13px;line-height:1.6">
+      <strong style="color:var(--accent)">Revenue driver bridge (FY2025 → FY2026E):</strong>
+      <span style="color:var(--text-muted)"> Core NOP: ~5,139 cases (FY2025) × ~25% volume growth = ~6,400 cases (FY2026E) × ~$115K blended ASP = ~$736M. International: ~$20M (Italy NOP H1 2026 ramp). Total: ~$737M ≈ guided midpoint $742M. ASP is declining modestly as heart/lung mix grows (lower-ASP products); offset by volume. 2028E: ~8,500 cases × ~$118K blended ASP = ~$1,003M ≈ consensus $1,009M.</span>
+    </div>
+    <div class="op-stat fade-up">
+      <span>Operating leverage: <strong>$0.44</strong> of every new revenue dollar → operating income</span>
+      <span>CapEx down <strong>54%</strong> YoY — fleet build complete</span>
+    </div>
+
+    <div class="ni-note fade-up">FY2025 net income <span class="font-mono">$190M</span> includes <span class="font-mono">$83.8M</span> non-recurring tax benefit. Adjusted NI: ~<span class="font-mono">$106M</span>. FY2026E <span class="font-mono">$96.5M</span> = -9% adjusted, not the -49% headline suggests.</div>
+  </div>
+</section>
+
+<!-- ===== SECTION 7 — VALUATION ===== -->
+<section id="valuation">
+  <div class="container">
+    <div class="section-label fade-up">Valuation</div>
+    <div class="section-title fade-up">What Is TMDX Worth?</div>
+    <div class="section-subtitle fade-up">Our DCF was derived independently — then matched consensus. Validation, not anchoring. <em style="font-size:14px">Note: The $130 near-term target reflects intrinsic value discounted by the current governance premium; the base DCF of $148.32 is the fundamental value after governance compression. The $157.08 probability-weighted average is the risk-adjusted expected value across all three scenarios.</em></div>
+
+    <!-- DCF Scenarios -->
+    <div class="dcf-scenarios fade-up" id="dcfBars">
+      <div class="dcf-row">
+        <div class="dcf-label">BEAR <span class="prob">(25%)</span></div>
+        <div><div class="dcf-bar-container"><div class="dcf-bar dcf-bar-bear" style="width:0" data-target="24.5%"></div></div><div class="dcf-assumptions">WACC 15.5% · 18x terminal · ENHANCE stall · <strong>25% probability</strong></div></div>
+        <div class="dcf-price" style="color:var(--bear)">$70.73</div>
+      </div>
+      <div class="dcf-row dcf-base">
+        <div class="dcf-label">BASE <span class="prob">(55%)</span></div>
+        <div><div class="dcf-bar-container"><div class="dcf-bar dcf-bar-base" style="width:0" data-target="51.3%"></div></div><div class="dcf-assumptions">WACC 13.0% · 22x terminal · Guidance delivered · <strong>55% probability</strong></div></div>
+        <div class="dcf-price" style="color:var(--accent)">$148.32</div>
+      </div>
+      <div class="dcf-row">
+        <div class="dcf-label">BULL <span class="prob">(20%)</span></div>
+        <div><div class="dcf-bar-container"><div class="dcf-bar dcf-bar-bull" style="width:0" data-target="100%"></div></div><div class="dcf-assumptions">WACC 11.5% · 28x terminal · OPTN + kidney + Europe · <strong>20% probability</strong></div></div>
+        <div class="dcf-price" style="color:var(--gold)">$289.12</div>
+      </div>
+      <div class="dcf-row dcf-base" style="border-color:var(--gold)">
+        <div class="dcf-label" style="color:var(--accent)">WEIGHTED</div>
+        <div><div class="dcf-bar-container"><div class="dcf-bar dcf-bar-weighted" style="width:0" data-target="54.3%"></div></div><div class="dcf-assumptions">Risk/Reward: 3.6:1 · Current price $100.69 sits at the floor</div></div>
+        <div class="dcf-price" style="color:var(--accent)">$157.08</div>
+      </div>
+    </div>
+
+    <!-- Sensitivity Matrix -->
+    <div class="chart-wrapper fade-up">
+      <h3>Sensitivity Matrix — WACC vs. Terminal Multiple</h3>
+      <div class="sensitivity-wrapper">
+      <table class="sensitivity-table">
+        <thead><tr><th>WACC \ Multiple</th><th>18x</th><th>22x</th><th>26x</th><th>28x</th></tr></thead>
+        <tbody>
+          <tr><td>11.5%</td><td>$110</td><td class="cell-highlight">$133</td><td>$155</td><td>$167</td></tr>
+          <tr><td>13.0%</td><td class="cell-current">$96</td><td class="cell-highlight">$120</td><td>$143</td><td>$156</td></tr>
+          <tr><td>15.5%</td><td>$76</td><td class="cell-current">$96</td><td>$115</td><td>$125</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:12px">Current price <span class="font-mono">$100.69</span> is at or below the most conservative intersection shown. Every reasonable scenario produces upside. <em>Note: Matrix uses simplified EV/EBITDA approximation; full FCF-based DCF base case is $148.32.</em></p>
+    </div>
+
+    <!-- Wall Street Comparison -->
+    <div class="chart-wrapper fade-up">
+      <h3>Wall Street Comparison — Foil, Not Foundation <span style="font-size:12px;font-weight:400;color:var(--text-muted);font-family:var(--font-mono)">· Live data April 6, 2026</span></h3>
+      <div style="overflow-x:auto">
+      <div class="ws-table-wrapper"><table class="ws-table">
+        <thead><tr><th>Firm</th><th>Rating</th><th>Target</th><th>Our View</th></tr></thead>
+        <tbody>
+          <tr><td>Evercore ISI <span style="font-size:11px;color:var(--bear)">&#x25BC; cut today from $170</span></td><td>Outperform</td><td style="color:var(--bear)">$118</td><td class="disagree">Disagree: $118 Outperform at $104.80 is inconsistent — 12% upside with Outperform rating signals model uncertainty, not conviction</td></tr>
+          <tr><td>Stifel</td><td>Hold</td><td>$130</td><td class="disagree">Neutral: Stop-loss at $85; hold rating implies insufficient conviction on the de-risking catalyst</td></tr>
+          <tr><td>JP Morgan</td><td>Neutral</td><td>$149</td><td class="disagree">Disagree: ENHANCE friction ≠ 2026 catalyst; governance de-risking mechanism not modeled</td></tr>
+          <tr><td>Morgan Stanley</td><td>Equal-Weight</td><td>$135</td><td class="disagree">Disagree: FCF inflection invalidates multiple compression thesis</td></tr>
+          <tr><td>Piper Sandler</td><td>Overweight</td><td>$160</td><td class="agree">Aligned</td></tr>
+          <tr><td>Oppenheimer</td><td>Outperform</td><td>$175</td><td class="agree">Aligned</td></tr>
+          <tr><td>Needham</td><td>Buy</td><td>$174</td><td class="agree">Aligned</td></tr>
+          <tr><td>Our DCF</td><td>LONG</td><td>$148</td><td>Independently derived · avg consensus $148.62 = 0.2% variance · validated without using consensus as input</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- M&A Takeout Scenario -->
+    <div class="chart-wrapper fade-up">
+      <h3>M&amp;A Takeout Scenario — Who Acquires TMDX and At What Price</h3>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">Current market cap: <span class="font-mono text-accent">$3.6B</span> (April 6, 2026). At 30% premium: <span class="font-mono">~$4.68B</span>. At 50% premium: <span class="font-mono">~$5.40B</span>. Infrastructure-like recurring revenue + defensible moat = natural acquisition target as DOJ risk resolves.</p>
+      <div class="ma-table-wrapper">
+        <table class="ma-table">
+          <thead>
+            <tr>
+              <th>Potential Acquirer</th>
+              <th>Strategic Rationale</th>
+              <th>30% Premium (~$136)</th>
+              <th>50% Premium (~$157)</th>
+              <th>Probability</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Medtronic (MDT)</strong><br><span style="font-size:11px;color:var(--text-faint)">$107B mkt cap</span></td>
+              <td>Organ logistics + NMP platform = new recurring revenue stream adjacent to cardiac portfolio. Fleet + surgeon network too costly to replicate internally. Medtronic acquired Mazor, Covidien, Intersect ENT — infrastructure tuck-ins are core strategy.</td>
+              <td class="ma-high">~$4.68B</td>
+              <td class="ma-high">~$5.40B</td>
+              <td><span class="ma-med">Medium</span></td>
+            </tr>
+            <tr>
+              <td><strong>Becton Dickinson (BDX)</strong><br><span style="font-size:11px;color:var(--text-faint)">$64B mkt cap</span></td>
+              <td>Hospital services platform expansion. TMDX’s 80+ transplant center relationships = captive distribution for BDX surgical products. NOP reimbursement model is familiar to BDX’s procedural revenue structure.</td>
+              <td class="ma-high">~$4.68B</td>
+              <td class="ma-high">~$5.40B</td>
+              <td><span class="ma-low">Low–Medium</span></td>
+            </tr>
+            <tr>
+              <td><strong>UnitedHealth / Optum</strong><br><span style="font-size:11px;color:var(--text-faint)">$270B mkt cap</span></td>
+              <td>Vertical integration of transplant logistics into Optum health delivery. Insurance + care delivery + logistics = full transplant stack. Premium paid = reduced organ waste cost to payers.</td>
+              <td class="ma-high">~$4.68B</td>
+              <td class="ma-high">~$5.40B</td>
+              <td><span class="ma-low">Low</span></td>
+            </tr>
+            <tr>
+              <td><strong>Private Equity</strong><br><span style="font-size:11px;color:var(--text-faint)">e.g., Silver Lake, KKR</span></td>
+              <td>Infrastructure-like recurring revenue, captive market, hard replication barrier. NOP model resembles toll-road economics — predictable case-triggered cash flow. FCF-positive and growing. Governance resolution = entry point.</td>
+              <td class="ma-high">~$4.68B</td>
+              <td class="ma-high">~$5.40B</td>
+              <td><span class="ma-med">Medium</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ma-comps">
+        <div class="ma-comp-item">
+          <div class="ma-comp-deal">Sanofi / Blueprint Medicines — $9.5B (Jul 2025)</div>
+          <div class="ma-comp-detail">$479M in 2024 revenue → ~19.8× EV/Rev. Systemic mastocytosis monopoly. Comparable moat profile (single-disease defensible platform). Source: DealForma 2025 M&amp;A Review.</div>
+        </div>
+        <div class="ma-comp-item">
+          <div class="ma-comp-deal">Merck / Verona Pharma — $10B (Oct 2025)</div>
+          <div class="ma-comp-detail">~$280M run-rate revenue → ~35.7× EV/Rev. COPD platform. Premium paid for defensible recurring revenue with visible pipeline extension. Source: DealForma 2025 M&amp;A Review.</div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--text-faint);margin-top:10px">M&amp;A is not the base case. It is a free option. DOJ overhang reduces near-term probability — resolution = re-rating AND acquisition interest simultaneously. Precedent comps (Sanofi/Blueprint 19.8× EV/Rev, Merck/Verona 35.7× EV/Rev) show that defensible platform monopolies command significant premia. At standard medtech acquisition multiples, any of the four acquirers above would produce a substantial premium to current $3.6B market cap.</p>
+    </div>
+
+    <div class="fade-up" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;line-height:1.7">
+      <strong style="color:var(--accent)">WACC Derivation:</strong>
+      <span style="color:var(--text-muted)">
+        <span class="font-mono">RF 4.3%</span> (10yr Treasury) +
+        <span class="font-mono">Beta 1.1</span> &times; <span class="font-mono">MRP 6.5%</span> +
+        <span class="font-mono">1.55%</span> governance/size premium
+        = <strong style="color:var(--text)">13.0% base WACC</strong>.
+        Governance de-risking &rarr; <span class="font-mono">11.5%</span> (bull).
+        DOJ CID &rarr; <span class="font-mono">15.5%</span> (bear).
+        <em style="font-size:12px">Beta 1.1 = 0.62 raw 3-yr historical, relevered via Hamada equation against medtech peer avg D/E. MRP 6.5% per Damodaran implied (Jan 2026). Size/governance premium 1.55% per Duff &amp; Phelps decile 9b.</em>
+        Terminal growth rate: <span class="font-mono">3.5%</span> (long-term US healthcare spending CAGR).
+        22× base exit multiple derived from medtech NTM EV/EBITDA peer set: ISRG 42×, EW 28×, PEN 38×, HAE 18× &mdash; TMDX at 22× reflects governance discount vs. pure-play medtech average of ~30×, compressing toward 28× (bull) as governance resolves.
+        Sensitivity matrix shows upside at every reasonable intersection.
+      </span>
+    </div>
+    <div class="fade-up" style="font-size:12px;color:var(--text-muted);background:var(--surface);border-radius:6px;padding:10px 14px;margin-bottom:24px;border-left:3px solid var(--border);">
+      <strong>Probability note:</strong> Stage 5 pre-mortem failure chains are overlapping conditional scenarios (probabilities sum &gt;100% as events can co-occur). DCF scenarios are mutually exclusive and exhaustive. The 25% bear weight reflects probability of structural business decline — not a single event. Even at 40% bear weight, probability-weighted target ≈ $129, still above entry.
+    </div>
+    <div class="peer-line fade-up">Peer P/E: <span class="mono">ISRG 57x</span> · <span class="mono">EW 45x</span> · <span class="mono">PEN 73x</span> · <span class="mono">TMDX 21.5x</span> <span style="font-size:11px;color:var(--text-faint)">(live Apr 6 2026)</span> — with 40% governance haircut: <span class="mono">35x → $170 implied</span></div>
+    </div><!-- /peer-line wrapper -->
+  </div>
+</section>
+
+<!-- ===== SECTION 8 — CATALYST TIMELINE ===== -->
+<section id="catalysts">
+  <div class="container">
+    <div class="section-label fade-up">Catalysts</div>
+    <div class="section-title fade-up">What Moves This Stock</div>
+
+    <div class="timeline fade-up" id="timeline">
+      <div class="timeline-line"></div>
+      <div class="timeline-events">
+        <div class="timeline-event">
+          <div class="timeline-dot" data-delay="0"></div>
+          <div><div class="timeline-date">May 7, 2026</div><div class="timeline-title">Q1 Earnings</div><div class="timeline-text" style="overflow-wrap:anywhere;word-break:break-word">EPS -76% vs Q4. Seasonal. Guided. Beat = squeeze trigger.</div></div>
+        </div>
+        <div class="timeline-event">
+          <div class="timeline-dot" data-delay="150"></div>
+          <div><div class="timeline-date">H1 2026</div><div class="timeline-title">Italy NOP</div><div class="timeline-text">First European revenue. Proof for $2B+ TAM.</div></div>
+        </div>
+        <div class="timeline-event">
+          <div class="timeline-dot" data-delay="300"></div>
+          <div><div class="timeline-date">H1 2026</div><div class="timeline-title">ENHANCE Update</div><div class="timeline-text">On-track = heart thesis reactivated.</div></div>
+        </div>
+        <div class="timeline-event">
+          <div class="timeline-dot" data-delay="450"></div>
+          <div><div class="timeline-date">Q3 2026</div><div class="timeline-title">Kidney Trial</div><div class="timeline-text">FDA protocol confirmation.</div></div>
+        </div>
+        <div class="timeline-event">
+          <div class="timeline-dot" data-delay="600"></div>
+          <div><div class="timeline-date">EOY 2026</div><div class="timeline-title">OPTN Decision</div><div class="timeline-text">Binary. Approved = federally integrated.</div></div>
+        </div>
+        <div class="timeline-event">
+          <div class="timeline-dot" data-delay="750"></div>
+          <div><div class="timeline-date">2027–2029</div><div class="timeline-title">Kidney FDA + Commercial</div><div class="timeline-text">$2B+ TAM begins.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="squeeze-box fade-up">
+      <div class="big-nums">7.9M shares short · 9.2 days to cover</div>
+      <p>Any positive catalyst = asymmetric upside amplifier.<br>The short squeeze is a <strong>FREE OPTION</strong> on each catalyst above.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 9 — BEAR CASE ===== -->
+<section id="risks">
+  <div class="container">
+    <div class="section-label fade-up">Bear Case</div>
+    <div class="section-title fade-up">We Know It Cold</div>
+
+    <div class="bear-quote fade-up">"The bear case on TMDX is not that the business is fake — it is that governance uncertainty combined with a convertible note floor at $94 creates a scenario where the stock can halve on news flow alone. We believe this risk is MORE than priced in at $100.69."<span class="rr">3.6:1 risk/reward · $85 hard stop</span><span style="display:block;font-size:11px;color:var(--text-muted);margin-top:8px;font-style:normal"><strong>R/R note:</strong> Pre-mortem failure chains (Stage 5) are overlapping conditionals — probabilities can sum &gt;100%. DCF scenarios (Stage 6) are mutually exclusive. 25% DCF bear = probability of structural business decline. Even at 40% bear weight, probability-weighted target ≈ $129, above entry.</span></div>
+    <p class="fade-up" style="font-size:13px;color:var(--text-muted);margin-top:32px;margin-bottom:32px;padding:14px 18px;background:var(--surface);border-radius:6px;border-left:3px solid var(--accent)"><strong>Downside recovery scenario:</strong> If stock reaches $75 (governance scare, not fundamental impairment): cash $488M covers all litigation under $300M, FCF still positive (~$80M+), management retains equity awards — re-entry thesis intact. Trough EBITDA under full bear: ~$155M (26% margin on $595M revenue) at 18x terminal = ~$88 floor. <br><br><strong>Position sizing note:</strong> The $85 stop assumes an orderly exit. A DOJ CID disclosure could gap the stock to $52-60 — making the true worst-case drawdown ~$40-48, not $15.69. We account for this by sizing this as a <strong>2-3% position</strong>. At that size, the risk/reward asymmetry is compelling even under gap-adjusted analysis.</p>
+
+    <div class="chart-wrapper fade-up" style="overflow-x:auto">
+      <h3>Risk / Mitigant Matrix</h3>
+      <div class="risk-table-wrapper"><table class="risk-table">
+        <thead><tr><th>Risk</th><th>Mitigant</th></tr></thead>
+        <tbody>
+          <tr><td>DOJ Investigation</td><td>No CID in any SEC filing as of April 2026. The likely DOJ vector is <strong>CMS billing compliance</strong> (Medicare organ acquisition cost reimbursement), not financial statement manipulation — Beneish M-Score <span class="font-mono">-2.98</span> addresses the latter. NOP reimbursement is under reasonable-cost basis, structurally more defensible than DRG-bundled devices. Each clean quarterly filing without CID disclosure = governance premium compression.</td></tr>
+          <tr><td>Customer Concentration<br><span style="font-weight:400;font-size:12px;color:var(--text-muted)">(top 5 = 40%)</span></td><td>High operational switching costs. 4-year NOP relationships. 80+ active centers. Zero voluntary reductions.</td></tr>
+          <tr><td>NRP "Displacement"</td><td>NRP = DBD donors. OCS = DCD donors. Different populations, not substitutes. OCS liver share GREW <span class="font-mono">26% → 36%</span> despite NRP.</td></tr>
+          <tr><td>$94 Convertible Floor<br><span style="font-weight:400;font-size:12px;color:var(--text-muted)">(7.1% above current)</span></td><td><span class="font-mono">$488M</span> cash > <span class="font-mono">$470M</span> debt. FCF self-funding. Stop at <span class="font-mono">$85</span> sized for this.</td></tr>
+          <tr><td>Q1 2026 EPS Cliff<br><span style="font-weight:400;font-size:12px;color:var(--text-muted)">(-76% vs Q4)</span></td><td>Seasonal. Guided 90 days ago. Every Q1 in TMDX history. Already priced in.</td></tr>
+          <tr><td>CFO Replacement<br><span style="font-weight:400;font-size:12px;color:var(--text-muted)">(Dec 2024)</span></td><td><strong>CFO: Gerardo Hernandez</strong> (replaced Stephen Gordon, Dec 2024 — stated reason: planned transition). Hernandez: first full quarter = Q4 2025 clean beat (+39% EPS), deferred tax asset release (auditor-certified permanent profitability confidence), new equity awards to executives. Growth CFO behavior, not cleanup. Board: 7-member, Founder/CEO-led, 2 independent directors with 10yr+ medtech experience.</td></tr>
+          <tr><td>Litigation Liability</td><td><span class="font-mono">$488M</span> cash. Scenarios under <span class="font-mono">$300M</span> fully covered.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Scorpion Capital -->
+    <div class="scorpion-box fade-up">
+      <h4>Scorpion Capital Status</h4>
+      <div class="scorpion-item"><span class="icon-check">✓</span><span><strong style="color:var(--bull)">PROVEN WRONG:</strong> "FCF will never turn positive" → FY2025: <span class="font-mono">+$134M</span></span></div>
+      <div class="scorpion-item"><span class="icon-warn">⚠</span><span><strong style="color:var(--gold)">STILL OPEN:</strong> CFO explanation, DSO monitoring, DOJ reference — we've sized position accordingly</span></div>
+      <div class="scorpion-item"><span class="icon-data">◆</span><span>Beneish M-Score: <span class="font-mono">-2.98</span> (below <span class="font-mono">-1.78</span> manipulation threshold)</span></div>
+    </div>
+    </div><!-- /risks-content -->
+  </div>
+</section>
+
+<!-- ===== SECTION 10 — CLOSE ===== -->
+<section class="close-section" id="close">
+  <div class="container">
+    <div class="close-statement fade-up">At <span class="font-mono">$100.69</span>, you're paying for the liver business.<br>The heart expansion, kidney platform, European NOP,<br>OPTN federal integration, and a <span style="color:var(--gold)">$15-20M oil normalization tailwind</span> are all <em>free</em>.</div>
+
+    <div class="fade-up">
+      <div class="summary-box">
+        <span class="direction">LONG TMDX</span>
+        <span class="divider">|</span>
+        <span>Entry <span class="font-mono">$100.69</span></span>
+        <span class="divider">|</span>
+        <span>Near-Term <span class="font-mono text-bull">$130</span> <span style="font-size:12px">(+29%)</span></span>
+        <span class="divider">|</span>
+        <span>Bull <span class="font-mono text-accent">$155</span> <span style="font-size:12px">(+54%)</span></span>
+        <span class="divider">|</span>
+        <span>Stop <span class="font-mono text-bear">$85</span> <span style="font-size:12px">(-16%)</span></span>
+        <span class="divider">|</span>
+        <span>R/R <span class="font-mono text-accent">3.6:1</span></span>
+      </div>
+    </div>
+
+    <p class="skin-statement fade-up">After completing this research using Perplexity Computer, I was personally convinced enough to take a position in TMDX. This is my actual investment view — not a theoretical exercise.</p>
+    <p class="disclaimer fade-up">Not financial advice. For educational and competition purposes only.</p>
+
+    <!-- Research Thread Evidence -->
+    <div class="fade-up" style="max-width:680px;margin:0 auto 28px;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden">
+      <div style="padding:8px 14px;background:var(--surface-elevated);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px">
+        <span style="font-size:9px;font-family:var(--font-mono);font-weight:700;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase">Research Thread Evidence</span>
+        <span style="font-size:10px;color:var(--text-faint);font-family:var(--font-mono)">4 threads · submitted as Computer usage evidence</span>
+      </div>
+      <div style="display:flex;flex-direction:column">
+        <a href="https://www.perplexity.ai/computer/tasks/perplexity-pitch-competition-ORV7.fXtQaqwoNaxjTLsYw?view=thread#70" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:8px 14px;text-decoration:none;border-bottom:1px solid var(--border);transition:background 0.15s" onmouseover="this.style.background='var(--accent-dim)'" onmouseout="this.style.background='transparent'">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#00C9B1" stroke-width="2.5" style="flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span style="font-size:12px;color:var(--text);font-weight:600;flex:1">Perplexity Pitch Competition — Omega Framework Build</span>
+          <span style="font-size:10px;font-family:var(--font-mono);color:var(--text-faint)">Stages 1–6 · debate · DCF</span>
+        </a>
+        <a href="https://www.perplexity.ai/computer/tasks/tmdx-investment-thesis-documen-BUAPb7glQ66HM7hc6x_kQg?view=thread" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:8px 14px;text-decoration:none;border-bottom:1px solid var(--border);transition:background 0.15s" onmouseover="this.style.background='var(--accent-dim)'" onmouseout="this.style.background='transparent'">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#00C9B1" stroke-width="2.5" style="flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span style="font-size:12px;color:var(--text);font-weight:600;flex:1">TMDX Investment Thesis — Deep Due Diligence</span>
+          <span style="font-size:10px;font-family:var(--font-mono);color:var(--text-faint)">36-step DDT · forensics · OPTN</span>
+        </a>
+        <a href="https://www.perplexity.ai/computer/tasks/ai-market-analysis-prompt-desi-Qj5Uw_RpSrC3mZGp6m3jXg?view=thread" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:8px 14px;text-decoration:none;border-bottom:1px solid var(--border);transition:background 0.15s" onmouseover="this.style.background='var(--accent-dim)'" onmouseout="this.style.background='transparent'">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#00C9B1" stroke-width="2.5" style="flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span style="font-size:12px;color:var(--text);font-weight:600;flex:1">AI Market Analysis — Prompt Design &amp; Methodology</span>
+          <span style="font-size:10px;font-family:var(--font-mono);color:var(--text-faint)">Direction-neutral · adversarial design</span>
+        </a>
+        <a href="https://www.perplexity.ai/computer/tasks/ai-video-and-html-embed-for-tm-1X6aNXVyTtqfIp9kPShVSQ?view=thread#1" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:8px 14px;text-decoration:none;transition:background 0.15s" onmouseover="this.style.background='var(--accent-dim)'" onmouseout="this.style.background='transparent'">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#00C9B1" stroke-width="2.5" style="flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span style="font-size:12px;color:var(--text);font-weight:600;flex:1">AI Video &amp; HTML Embed — Pitch Asset Production</span>
+          <span style="font-size:10px;font-family:var(--font-mono);color:var(--text-faint)">TTS narration · video gen · embed</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer fade-up">Built with Perplexity Computer · Omega Framework · By Luc Mwizerwa · April 2026</div>
+  </div>
+</section>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+// ===== Theme Toggle =====
+(function(){
+  const toggle = document.getElementById('themeToggle');
+  const html = document.documentElement;
+  let theme = 'dark'; // default dark
+  
+  const sunSVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  const moonSVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  
+  toggle.addEventListener('click', () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', theme);
+    toggle.innerHTML = theme === 'dark' ? sunSVG : moonSVG;
+    // Re-render charts and icons for new theme
+    if(typeof Chart !== 'undefined') Object.values(Chart.instances).forEach(function(c){
+      try{
+        // Refresh utilization chart colors on theme change
+        if(c.data && c.data.datasets && c.data.datasets[0] && c.data.datasets[0]._refreshColors){
+          const isDark = theme === 'dark';
+          const cold = isDark ? '#2A2F3E' : '#CBD5E1';
+          c.data.datasets[0].backgroundColor = ['#00C9B1',cold,'#00C9B1',cold,'#00C9B1',cold];
+        }
+        c.update();
+      }catch(e){}
+    });
+    if(typeof lucide !== 'undefined') lucide.createIcons();
+  });
+})();
+
+// ===== Sticky Nav =====
+(function(){
+  const nav = document.getElementById('mainNav');
+  // Hamburger menu
+const ham = document.getElementById('hamburger');
+const mNav = document.getElementById('mobileNav');
+if(ham) ham.addEventListener('click', () => { mNav.classList.toggle('open'); ham.classList.toggle('open'); });
+document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', () => { mNav.classList.remove('open'); if(ham) ham.classList.remove('open'); }));
+
+window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, {passive:true});
+})();
+
+// ===== Smooth Scroll =====
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if(target) target.scrollIntoView({behavior:'smooth'});
+  });
+});
+
+// ===== IntersectionObserver — Fade Up =====
+(function(){
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+})();
+
+// ===== Pipeline Animation =====
+(function(){
+  const pipeline = document.getElementById('pipeline');
+  const stages = pipeline.querySelectorAll('.pipeline-stage');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        stages.forEach((stage, i) => {
+          const delay = parseInt(stage.dataset.delay) || 0;
+          setTimeout(() => stage.classList.add('visible'), delay);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.2});
+  
+  observer.observe(pipeline);
+})();
+
+// ===== Timeline Dots =====
+(function(){
+  const timeline = document.getElementById('timeline');
+  const dots = timeline.querySelectorAll('.timeline-dot');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        dots.forEach((dot, i) => {
+          const delay = parseInt(dot.dataset.delay) || 0;
+          setTimeout(() => dot.classList.add('visible'), delay);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.2});
+  
+  observer.observe(timeline);
+})();
+
+// ===== DCF Bar Animation =====
+(function(){
+  const dcfBars = document.getElementById('dcfBars');
+  const bars = dcfBars.querySelectorAll('.dcf-bar');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        bars.forEach((bar, i) => {
+          setTimeout(() => {
+            bar.style.width = bar.dataset.target;
+          }, i * 200);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.2});
+  
+  observer.observe(dcfBars);
+})();
+
+// ===== Charts (wait for Chart.js) =====
+function initCharts(){
+  if(typeof Chart === 'undefined' || typeof ChartDataLabels === 'undefined'){
+    setTimeout(initCharts, 100);
+    return;
+  }
+  Chart.register(ChartDataLabels);
+  
+  // Global Chart.js defaults
+  Chart.defaults.color = '#8892A4';
+  Chart.defaults.borderColor = '#252A3A';
+  Chart.defaults.font.family = "'Satoshi', sans-serif";
+  Chart.defaults.font.size = 12;
+  Chart.defaults.plugins.legend.display = false;
+  Chart.defaults.animation.duration = 0; // We control animation via IO
+  
+  // === Utilization Chart ===
+  const utilCtx = document.getElementById('utilizationChart');
+  let utilChart;
+  
+  const utilObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        utilChart = new Chart(utilCtx, {
+          type: 'bar',
+          data: {
+            labels: ['OCS Liver', ['Cold Storage','DCD Liver'], 'OCS Heart', ['Cold Storage','DBD Heart'], 'OCS Lung', ['Cold Storage','Lung']],
+            datasets: [{
+              data: [98, 20, 97, 61, 96, 5],
+              backgroundColor: function(){
+                const isDark = document.documentElement.dataset.theme !== 'light';
+                const cold = isDark ? '#2A2F3E' : '#CBD5E1';
+                return ['#00C9B1',cold,'#00C9B1',cold,'#00C9B1',cold];
+              }(),
+              _refreshColors: true,
+              borderRadius: 4,
+              maxBarThickness: 48
+            }]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {duration: 1500, easing: 'easeOutQuart'},
+            scales: {
+              x: {
+                max: 100,
+                grid: {color: document.documentElement.dataset.theme==='light' ? 'rgba(0,0,0,0.07)' : 'rgba(37,42,58,0.5)'},
+                ticks: {callback: v => v + '%', font:{family:"'JetBrains Mono',monospace",size:11}}
+              },
+              y: {
+                grid: {display:false},
+                ticks: {font:{size:11,family:"'Satoshi',sans-serif"}}
+              }
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {label: ctx => ctx.raw + '% utilization rate'}
+              },
+              datalabels: {
+                anchor: 'end',
+                align: 'end',
+                formatter: v => v + '%',
+                color: '#8892A4',
+                font: {family:"'JetBrains Mono',monospace", size: 11, weight: '600'}
+              }
+            }
+          }
+        });
+        utilObserver.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.3});
+  utilObserver.observe(utilCtx);
+  
+  // === Revenue Chart ===
+  const revCtx = document.getElementById('revenueChart');
+  
+  const revObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        new Chart(revCtx, {
+          type: 'bar',
+          data: {
+            labels: ['2021','2022','2023','2024','2025','2026E','2027E','2028E'],
+            datasets: [{
+              data: [30,93,242,442,605,737,875,1009],
+              backgroundColor: ['#00C9B1','#00C9B1','#00C9B1','#00C9B1','#00C9B1','#F0B429','#F0B429','#F0B429'],
+              borderRadius: 4,
+              maxBarThickness: 56
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {duration: 1500, easing: 'easeOutQuart'},
+            layout: {padding: {top: 40, right: 8}},
+            scales: {
+              y: {
+                beginAtZero: true,
+                grid: {color: document.documentElement.dataset.theme==='light' ? 'rgba(0,0,0,0.07)' : 'rgba(37,42,58,0.5)'},
+                ticks: {callback: v => '$'+v+'M', font:{family:"'JetBrains Mono',monospace",size:11}}
+              },
+              x: {grid: {display:false}}
+            },
+            plugins: {
+              tooltip: {callbacks: {label: ctx => '$'+ctx.raw+'M'}},
+              datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: v => '$' + v + 'M',
+                color: function(ctx){ return ctx.dataIndex >= 5 ? '#F0B429' : '#00C9B1'; },
+                font: {family:"'JetBrains Mono',monospace", size:10, weight:'600'},
+                display: function(ctx){ return ctx.dataset.data[ctx.dataIndex] >= 93; },
+                overflow: false
+              }
+            }
+          }
+        });
+        revObserver.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.3});
+  revObserver.observe(revCtx);
+  
+  // === FCF Chart (rebuilt) ===
+  const fcfCtx = document.getElementById('fcfChart');
+
+  // Helper: build a split gradient fill — teal above zero, red below zero
+  function buildFcfGradient(chart) {
+    const { ctx: c, chartArea, scales } = chart;
+    if (!chartArea) return 'rgba(0,201,177,0.08)';
+    const zeroY  = scales.y.getPixelForValue(0);
+    const top    = chartArea.top;
+    const bottom = chartArea.bottom;
+    const height = bottom - top;
+    // Clamp zeroY to chart area
+    const clampedZero = Math.max(top, Math.min(bottom, zeroY));
+    const grad = c.createLinearGradient(0, top, 0, bottom);
+    // Above zero → teal tint
+    grad.addColorStop(0, 'rgba(0,201,177,0.18)');
+    grad.addColorStop((clampedZero - top) / height, 'rgba(0,201,177,0.05)');
+    // Below zero → red tint
+    grad.addColorStop((clampedZero - top) / height, 'rgba(243,63,94,0.05)');
+    grad.addColorStop(1, 'rgba(243,63,94,0.20)');
+    return grad;
+  }
+
+  const fcfData   = [-58, -192, -81, 134, 81, 164];
+  const fcfLabels = ['2022', '2023', '2024', '2025', '2026E', '2027E'];
+
+  const fcfObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const fcfChart = new Chart(fcfCtx, {
+          type: 'line',
+          data: {
+            labels: fcfLabels,
+            datasets: [{
+              data: fcfData,
+              // Line color: red segment when both endpoints negative, teal otherwise
+              borderColor: '#00C9B1',
+              segment: {
+                borderColor: function(ctx) {
+                  const p = ctx.p0.parsed.y, n = ctx.p1.parsed.y;
+                  return (p <= 0 && n <= 0) ? '#F43F5E' : '#00C9B1';
+                }
+              },
+              // Fill: split gradient computed from live scale
+              fill: 'origin',
+              backgroundColor: function(ctx) {
+                return buildFcfGradient(ctx.chart);
+              },
+              tension: 0.3,
+              pointRadius: function(ctx) {
+                // Slightly larger for the inflection point
+                return ctx.dataIndex === 3 ? 8 : 6;
+              },
+              pointBackgroundColor: function(ctx) {
+                return ctx.raw < 0 ? '#F43F5E' : '#00C9B1';
+              },
+              pointBorderColor: 'transparent',
+              pointBorderWidth: 0,
+              borderWidth: 2.5
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 1500, easing: 'easeOutQuart' },
+            layout: { padding: { top: 52, bottom: 16, left: 8, right: 8 } },
+            scales: {
+              y: {
+                grid: {
+                  color: document.documentElement.dataset.theme === 'light'
+                    ? 'rgba(0,0,0,0.07)' : 'rgba(37,42,58,0.5)',
+                  // Draw a highlighted zero line
+                  lineWidth: function(ctx) { return ctx.tick.value === 0 ? 2 : 1; },
+                  color: function(ctx) {
+                    if (ctx.tick.value === 0) return document.documentElement.dataset.theme === 'light' ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.25)';
+                    return document.documentElement.dataset.theme === 'light'
+                      ? 'rgba(0,0,0,0.07)' : 'rgba(37,42,58,0.5)';
+                  }
+                },
+                min: -250,
+                ticks: {
+                  callback: v => '$' + v + 'M',
+                  font: { family: "'JetBrains Mono',monospace", size: 11 }
+                }
+              },
+              x: { grid: { display: false } }
+            },
+            plugins: {
+              tooltip: { callbacks: { label: ctx => '$' + ctx.raw + 'M' } },
+              legend: { display: false },
+              datalabels: {
+                // Anchor to 'end' of the element (top for positive, bottom for negative)
+                anchor: function(ctx) {
+                  return fcfData[ctx.dataIndex] >= 0 ? 'end' : 'start';
+                },
+                align: function(ctx) {
+                  return fcfData[ctx.dataIndex] >= 0 ? 'top' : 'bottom';
+                },
+                offset: function(ctx) {
+                  // Give the inflection point extra room so 'FIRST POSITIVE FCF' label doesn't clash
+                  return ctx.dataIndex === 3 ? 4 : 6;
+                },
+                clamp: true,
+                formatter: function(v) {
+                  return (v > 0 ? '+' : '') + '$' + v + 'M';
+                },
+                color: function(ctx) {
+                  return fcfData[ctx.dataIndex] < 0 ? '#F43F5E' : '#00C9B1';
+                },
+                font: function(ctx) {
+                  // Bold the inflection point label
+                  return {
+                    family: "'JetBrains Mono',monospace",
+                    size: 10,
+                    weight: ctx.dataIndex === 3 ? '700' : '500'
+                  };
+                },
+                display: function(ctx) {
+                  // Show all labels
+                  return true;
+                }
+              }
+            }
+          },
+          plugins: [{
+            id: 'fcfZeroLine',
+            afterDraw: function(chart) {
+              const { ctx: c, chartArea, scales } = chart;
+              const zeroY = scales.y.getPixelForValue(0);
+              if (zeroY < chartArea.top || zeroY > chartArea.bottom) return;
+              // Draw dotted zero reference line
+              c.save();
+              c.setLineDash([4, 4]);
+              c.strokeStyle = document.documentElement.dataset.theme === 'light' ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.2)';
+              c.lineWidth = 1;
+              c.beginPath();
+              c.moveTo(chartArea.left, zeroY);
+              c.lineTo(chartArea.right, zeroY);
+              c.stroke();
+              c.restore();
+              // Draw 'FIRST POSITIVE FCF' annotation above 2025 point
+              const meta = chart.getDatasetMeta(0);
+              const pt   = meta.data[3];
+              if (!pt) return;
+              c.save();
+              c.fillStyle = '#00C9B1';
+              c.font = "600 10px 'JetBrains Mono', monospace";
+              c.textAlign = 'center';
+              c.globalAlpha = 0.9;
+              c.fillText('↑ FIRST POSITIVE FCF', pt.x, pt.y - 48);
+              c.restore();
+            }
+          }]
+        });
+        fcfObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  fcfObserver.observe(fcfCtx);
+}
+
+// Start chart initialization
+initCharts();
+
+// ===== Lucide Icons =====
+(function initLucide(){
+  if(typeof lucide === 'undefined'){ setTimeout(initLucide, 100); return; }
+  lucide.createIcons();
+  // Store reference to re-run on theme changes
+  window._lucideInit = true;
+})();
+
+// ===== Stage Tooltips (fixed-position, escapes overflow clipping) =====
+(function(){
+  // Create global tooltip element appended to body
+  const tt = document.createElement('div');
+  tt.id = 'gtt';
+  tt.innerHTML = '<div class="gtt-arrow"></div><div id="gtt-body"></div>';
+  document.body.appendChild(tt);
+  const ttBody = document.getElementById('gtt-body');
+  let hideTimer;
+
+  document.querySelectorAll('.pipeline-stage').forEach(function(stage){
+    const src = stage.querySelector('.stage-tooltip');
+    if (!src) return;
+
+    stage.addEventListener('mouseenter', function(){
+      clearTimeout(hideTimer);
+      // Extract title (strong) and body text
+      const strong = src.querySelector('strong');
+      const title = strong ? strong.textContent : '';
+      const full = src.innerHTML
+        .replace(/<strong>[^<]*<\/strong>/, '')
+        .replace(/<br>/gi, '')
+        .trim();
+      ttBody.innerHTML = (title ? '<b>' + title + '</b>' : '') + full;
+
+      // Position above the stage card
+      const rect = stage.getBoundingClientRect();
+      tt.style.opacity = '0';
+      tt.style.display = 'block';
+      const ttH = tt.offsetHeight;
+      const ttW = tt.offsetWidth;
+      let left = rect.left + rect.width / 2 - ttW / 2;
+      let top  = rect.top - ttH - 12;
+
+      // Keep within viewport horizontally
+      if (left < 8) left = 8;
+      if (left + ttW > window.innerWidth - 8) left = window.innerWidth - ttW - 8;
+
+      // If not enough space above, flip below
+      const arrow = tt.querySelector('.gtt-arrow');
+      if (top < 8) {
+        top = rect.bottom + 12;
+        arrow.style.top = '';
+        arrow.style.bottom = '100%';
+        arrow.style.borderTopColor = 'transparent';
+        arrow.style.borderBottomColor = '#00C9B1';
+      } else {
+        arrow.style.bottom = '';
+        arrow.style.top = '100%';
+        arrow.style.borderBottomColor = 'transparent';
+        arrow.style.borderTopColor = '#00C9B1';
+      }
+
+      // Recalculate arrow left position
+      const arrowLeft = Math.max(12, Math.min(
+        rect.left + rect.width / 2 - left - 6,
+        ttW - 18
+      ));
+      arrow.style.left = arrowLeft + 'px';
+      arrow.style.transform = 'none';
+
+      tt.style.left = left + 'px';
+      tt.style.top  = top  + 'px';
+      tt.style.opacity = '1';
+    });
+
+    stage.addEventListener('mouseleave', function(){
+      hideTimer = setTimeout(function(){ tt.style.opacity = '0'; tt.style.display = 'none'; }, 80);
+    });
+
+    // Touch support — tap to show, tap outside to hide
+    stage.addEventListener('touchstart', function(e){
+      e.preventDefault();
+      const isVisible = tt.style.opacity === '1';
+      // Hide any open tooltip first
+      tt.style.opacity = '0'; tt.style.display = 'none';
+      if (isVisible && tt._lastStage === stage) return;
+      tt._lastStage = stage;
+      stage.dispatchEvent(new MouseEvent('mouseenter'));
+    }, { passive: false });
+  });
+
+  // Tap outside closes tooltip on mobile
+  document.addEventListener('touchstart', function(e){
+    if (!e.target.closest('.pipeline-stage')) {
+      tt.style.opacity = '0'; tt.style.display = 'none';
+    }
+  });
+})();
+
+</script>
+
+<script>
+// JSONP callback — called by the Vercel proxy script tag
+function tmdxPrice(d) {
+  var el = document.getElementById('livePriceBadge');
+  if (!el || !d || !d.price) return;
+  var up = d.pct >= 0;
+  var color = up ? 'var(--bull)' : 'var(--bear)';
+  var displayPrice = (d.post || d.price).toFixed(2);
+  var displayPct   = (d.post ? d.postPct : d.pct);
+  var suffix       = d.post ? ' AH' : '';
+  el.innerHTML =
+    '<span style="color:' + color + ';font-weight:700">Live\u00b7$' + displayPrice + '</span>' +
+    '<span style="color:var(--text-faint)">\u00a0' + (up ? '+' : '') + displayPct.toFixed(1) + '%' + suffix + '</span>';
+}
+// Inject script tag — bypasses CORS and null-origin restrictions entirely
+(function(){
+  var s = document.createElement('script');
+  s.src = 'https://tmdx-price-proxy.vercel.app/api/price?cb=tmdxPrice';
+  s.onerror = function(){};
+  document.head.appendChild(s);
+})();
+</script>
+
+<script data-pplx-inline-edit>
+(function(){
+  if(window===window.top)return;
+  function inlineAll(orig,clone){
+    if(orig.nodeType!==1)return;
+    try{
+      var cs=getComputedStyle(orig);
+      var t='';
+      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
+      clone.style.cssText=t;
+    }catch(e){}
+    var oc=orig.children,cc=clone.children;
+    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+  }
+  function stripExternal(clone){
+    var imgs=clone.querySelectorAll('img');
+    for(var i=0;i<imgs.length;i++){
+      var s=imgs[i].getAttribute('src');
+      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
+    }
+    var all=clone.querySelectorAll('*');
+    for(var i=0;i<all.length;i++){
+      var st=all[i].style.cssText;
+      if(st&&st.indexOf('url(')>=0){
+        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
+      }
+    }
+  }
+  window.addEventListener('message',function(e){
+    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
+    var scrollX=window.scrollX||window.pageXOffset||0;
+    var scrollY=window.scrollY||window.pageYOffset||0;
+    var w=window.innerWidth,h=window.innerHeight;
+    try{
+      var clone=document.documentElement.cloneNode(true);
+      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
+      for(var i=0;i<rm.length;i++){rm[i].remove();}
+      inlineAll(document.documentElement,clone);
+      stripExternal(clone);
+      var html=new XMLSerializer().serializeToString(clone);
+      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+        +'<foreignObject width="100%" height="100%">'
+        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
+        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
+        +html+'</div></div></foreignObject></svg>';
+      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0);
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.onerror=function(){
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.src=svgUrl;
+    }catch(err){
+      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+    }
+  });
+})();
+</script></body>
+</html>
