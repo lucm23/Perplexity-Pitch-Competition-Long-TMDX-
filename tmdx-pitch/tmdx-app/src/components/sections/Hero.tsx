@@ -1,5 +1,50 @@
+"use client";
+import { useEffect, useState } from "react";
 import FadeUp from "@/components/ui/FadeUp";
 import AudioPlayer from "@/components/ui/AudioPlayer";
+
+// Mirrors the tmdxPrice() JSONP callback from the original HTML
+function LivePriceBadge() {
+  const [badge, setBadge] = useState<{ price: number; pct: number; post: number | null; postPct: number | null } | null>(null);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/price")
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((d) => setBadge(d))
+      .catch(() => setError(true));
+  }, []);
+
+  if (error || !badge) {
+    // Fallback: same Yahoo Finance link as the original HTML
+    return (
+      <a
+        href="https://finance.yahoo.com/quote/TMDX"
+        target="_blank"
+        rel="noopener"
+        style={{ color: "var(--text-faint)", textDecoration: "none", fontSize: 11 }}
+      >
+        Live price ↗
+      </a>
+    );
+  }
+
+  const isUp = badge.pct >= 0;
+  const color = isUp ? "var(--bull)" : "var(--bear)";
+  const displayPrice = (badge.post ?? badge.price).toFixed(2);
+  const displayPct   = badge.post ? badge.postPct! : badge.pct;
+  const suffix       = badge.post ? " AH" : "";
+
+  return (
+    <span style={{ fontFamily: "var(--font-mono)", fontSize: 12 }}>
+      <span style={{ color, fontWeight: 700 }}>Live·${displayPrice}</span>
+      {" "}
+      <span style={{ color: "var(--text-faint)" }}>
+        {isUp ? "+" : ""}{displayPct.toFixed(2)}%{suffix}
+      </span>
+    </span>
+  );
+}
 
 export default function Hero() {
   return (
@@ -19,11 +64,8 @@ export default function Hero() {
             <div className="kpi-card">
               <div className="kpi-label">Entry Price</div>
               <div className="kpi-value font-mono" style={{ color: "var(--text)" }}>$100.69</div>
-              <div style={{ marginTop:6, fontSize:12, fontFamily:"var(--font-mono)", minHeight:16 }}>
-                <a href="https://finance.yahoo.com/quote/TMDX" target="_blank" rel="noopener"
-                   style={{ color:"var(--text-faint)", textDecoration:"none", fontSize:11 }}>
-                  Live price ↗
-                </a>
+              <div id="livePriceBadge" style={{ marginTop:6, fontSize:12, fontFamily:"var(--font-mono)", minHeight:16 }}>
+                <LivePriceBadge />
               </div>
             </div>
             <div className="kpi-card">
