@@ -6,12 +6,30 @@ export default function AudioPlayer() {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [time, setTime] = useState("0:00");
+  // Prevents overlapping play/pause calls that trigger AbortError
+  const pendingRef = useRef(false);
 
-  function toggle() {
+  async function toggle() {
     const a = audioRef.current;
-    if (!a) return;
-    if (a.paused) { a.play(); setPlaying(true); }
-    else { a.pause(); setPlaying(false); }
+    if (!a || pendingRef.current) return;
+    if (a.paused) {
+      pendingRef.current = true;
+      setPlaying(true); // optimistic — instant UI feedback
+      try {
+        await a.play();
+      } catch (err: unknown) {
+        setPlaying(false); // revert on failure
+        // AbortError is benign — it just means pause() raced with play()
+        if (err instanceof Error && err.name !== "AbortError") {
+          console.error("Audio play error:", err);
+        }
+      } finally {
+        pendingRef.current = false;
+      }
+    } else {
+      a.pause();
+      setPlaying(false);
+    }
   }
 
   function onTimeUpdate() {
@@ -61,7 +79,13 @@ export default function AudioPlayer() {
         </div>
       </div>
       <span style={{ fontFamily:"var(--font-mono)", fontSize:11, color:"var(--text-muted)", whiteSpace:"nowrap", flexShrink:0 }}>{time}</span>
-      <audio ref={audioRef} preload="none" onEnded={onEnded} onTimeUpdate={onTimeUpdate}>
+      <audio
+        ref={audioRef}
+        preload="metadata"
+        onEnded={onEnded}
+        onTimeUpdate={onTimeUpdate}
+        onError={(e) => console.error("Audio load error:", e)}
+      >
         <source src="/script.mp3" type="audio/mpeg"/>
       </audio>
     </div>

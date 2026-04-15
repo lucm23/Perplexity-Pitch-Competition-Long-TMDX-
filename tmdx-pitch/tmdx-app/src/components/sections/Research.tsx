@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import FadeUp from "@/components/ui/FadeUp";
 import Tooltip from "@/components/ui/Tooltip";
 import { motion } from "framer-motion";
@@ -26,9 +27,8 @@ export default function Research() {
         <FadeUp delay={0.15}>
           <div className="pipeline" id="pipeline">
             {stages.map((stage, i) => (
-              <>
+              <React.Fragment key={stage.id}>
                 <Tooltip
-                  key={stage.id}
                   content={
                     <div>
                       <b style={{ color: "var(--accent)", display: "block", marginBottom: 4, fontSize: 12 }}>{stage.tooltip.split("—")[0]}</b>
@@ -49,9 +49,9 @@ export default function Research() {
                   </motion.div>
                 </Tooltip>
                 {i < stages.length - 1 && (
-                  <div className="pipeline-arrow" key={`arrow-${i}`}>→</div>
+                  <div className="pipeline-arrow">→</div>
                 )}
-              </>
+              </React.Fragment>
             ))}
           </div>
           <div style={{ fontSize:10, fontFamily:"var(--font-mono)", color:"var(--text-faint)", letterSpacing:"0.1em", marginTop:-32, marginBottom:36, textAlign:"center" }}>

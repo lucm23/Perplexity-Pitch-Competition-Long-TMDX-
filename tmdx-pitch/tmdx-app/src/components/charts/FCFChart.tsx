@@ -49,7 +49,7 @@ export default function FCFChart() {
             clamp: true,
             formatter: (v) => (v > 0 ? "+" : "") + "$" + v + "M",
             color: (ctx) => fcfData[ctx.dataIndex] < 0 ? "#F43F5E" : "#00C9B1",
-            font: (ctx) => ({ family: "'JetBrains Mono',monospace", size: 10, weight: ctx.dataIndex === 3 ? "700" : "500" }),
+            font: (ctx) => ({ family: "'JetBrains Mono',monospace", size: 10, weight: (ctx.dataIndex === 3 ? "bold" : "normal") as "bold" | "normal" }),
           },
         },
       }}

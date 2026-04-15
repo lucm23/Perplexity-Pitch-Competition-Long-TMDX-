@@ -25,7 +25,7 @@ export default function UtilizationChart() {
         plugins: {
           legend: { display: false },
           tooltip: { callbacks: { label: (ctx) => ctx.raw + "% utilization rate" } },
-          datalabels: { anchor: "end", align: "end", formatter: (v) => v + "%", color: "#8892A4", font: { family: "'JetBrains Mono',monospace", size: 11, weight: "600" } },
+          datalabels: { anchor: "end", align: "end", formatter: (v) => v + "%", color: "#8892A4", font: { family: "'JetBrains Mono',monospace", size: 11, weight: "bold" as const } },
         },
       }}
     />

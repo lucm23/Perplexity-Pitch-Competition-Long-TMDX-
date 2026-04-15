@@ -3,7 +3,7 @@ import FadeUp from "@/components/ui/FadeUp";
 const risks = [
   { risk: "DOJ Investigation", mitigant: "No CID in any SEC filing as of April 2026. The likely DOJ vector is CMS billing compliance — not financial statement manipulation. Beneish M-Score -2.98 addresses the latter. Each clean quarterly filing without CID disclosure = governance premium compression." },
   { risk: "Customer Concentration\n(top 5 = 40%)", mitigant: "High operational switching costs. 4-year NOP relationships. 80+ active centers. Zero voluntary reductions." },
-  { risk: "NRP "Displacement"", mitigant: "NRP = DBD donors. OCS = DCD donors. Different populations, not substitutes. OCS liver share GREW 26% → 36% despite NRP." },
+  { risk: "NRP \u201cDisplacement\u201d", mitigant: "NRP = DBD donors. OCS = DCD donors. Different populations, not substitutes. OCS liver share GREW 26% → 36% despite NRP." },
   { risk: "$94 Convertible Floor\n(7.1% above current)", mitigant: "$488M cash > $470M debt. FCF self-funding. Stop at $85 sized for this." },
   { risk: "Q1 2026 EPS Cliff\n(-76% vs Q4)", mitigant: "Seasonal. Guided 90 days ago. Every Q1 in TMDX history. Already priced in." },
   { risk: "CFO Replacement\n(Dec 2024)", mitigant: "CFO: Gerardo Hernandez (replaced Stephen Gordon, Dec 2024 — stated reason: planned transition). Hernandez: first full quarter = Q4 2025 clean beat (+39% EPS), deferred tax asset release (auditor-certified permanent profitability confidence). Growth CFO behavior, not cleanup." },

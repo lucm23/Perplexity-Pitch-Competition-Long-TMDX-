@@ -38,7 +38,7 @@ export default function RevenueChart() {
               anchor: "end", align: "top",
               formatter: (v) => "$"+v+"M",
               color: (ctx) => ctx.dataIndex >= 5 ? "#F0B429" : "#00C9B1",
-              font: { family: "'JetBrains Mono',monospace", size: 10, weight: "600" },
+              font: { family: "'JetBrains Mono',monospace", size: 10, weight: "bold" as const },
               display: (ctx) => (ctx.dataset.data[ctx.dataIndex] as number) >= 93,
             },
           },
